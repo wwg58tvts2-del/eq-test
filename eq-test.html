@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Test – Emotionale Intelligenz</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header / Toolbar */
+        .toolbar {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .toolbar-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .toolbar h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .toolbar-info {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .toolbar-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            background: #ecf0f1;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab:hover {
+            background: #d5dbdb;
+        }
+
+        .tab.active {
+            background: white;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .section-header:hover {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: -10px -10px 15px -10px;
+            border-radius: 8px;
+        }
+
+        .section-header-content {
+            flex: 1;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .section-header .section-subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .section-collapse-icon {
+            font-size: 24px;
+            color: #3498db;
+            transition: transform 0.3s;
+        }
+
+        .section-header.collapsed .section-collapse-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section-questions {
+            max-height: 10000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s;
+            opacity: 1;
+        }
+
+        .section-questions.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* Name Input */
+        .name-input-section {
+            background: #fff9e6;
+            border: 2px solid #f39c12;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .name-input-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .name-input-section input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .name-input-section input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        /* Question Card */
+        .question-card {
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .question-card:hover {
+            border-color: #bdc3c7;
+        }
+
+        .question-card.unanswered {
+            border-color: #e74c3c;
+            background: #fadbd8;
+            animation: pulse 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .question-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .question-id {
+            font-weight: 700;
+            color: #3498db;
+            min-width: 45px;
+            font-size: 14px;
+        }
+
+        .question-text {
+            flex: 1;
+            min-width: 250px;
+            font-size: 15px;
+        }
+
+        .question-scale {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .scale-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .scale-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .scale-option label {
+            font-size: 12px;
+            color: #7f8c8d;
+            cursor: pointer;
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Results Section */
+        #results {
+            display: none;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .results-header h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .result-score {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .result-class {
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: #3498db;
+            color: white;
+            font-weight: 500;
+        }
+
+        .progress-bar-container {
+            background: #ecf0f1;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Profile Overview Table */
+        .profile-overview {
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table th,
+        .profile-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .profile-table th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+
+        .profile-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            margin-bottom: 30px;
+        }
+
+        .upload-section h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .upload-area {
+            border: 3px dashed #bdc3c7;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+
+        .upload-area.dragover {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .file-item-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .file-item-btn {
+            padding: 6px 12px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .file-item-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Comparison Chart */
+        .comparison-chart {
+            display: none;
+        }
+
+        .comparison-chart.show {
+            display: block;
+        }
+
+        .comparison-chart h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .comparison-scale {
+            margin-bottom: 40px;
+        }
+
+        .comparison-scale-header {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .comparison-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comparison-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .comparison-bar-name {
+            min-width: 150px;
+            font-weight: 500;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        .comparison-bar-container {
+            flex: 1;
+            background: #ecf0f1;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .comparison-bar {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .comparison-bar-score {
+            min-width: 60px;
+            text-align: right;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #ecf0f1;
+            margin-top: 40px;
+        }
+
+        /* Export Modal */
+        .export-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export-modal.show {
+            display: flex;
+        }
+
+        .export-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .export-content h3 {
+            margin-bottom: 15px;
+        }
+
+        .export-content textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            .question-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .question-scale {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .toolbar-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar-content">
+            <div>
+                <h1>E-Test – Emotionale Intelligenz</h1>
+                <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
+            </div>
+            <div class="toolbar-buttons">
+                <button class="btn btn-primary" id="btnEvaluate">Auswerten</button>
+                <button class="btn btn-secondary" id="btnReset">Zurücksetzen</button>
+                <button class="btn btn-success" id="btnExport">Export JSON</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="survey">📝 Befragung</button>
+            <button class="tab" data-tab="compare">📊 Vergleichen</button>
+        </div>
+
+        <!-- Survey Tab -->
+        <div class="tab-content active" id="surveyTab">
+            <!-- Name Input -->
+            <div class="name-input-section">
+                <label for="userName">Ihr Name (für den Export):</label>
+                <input type="text" id="userName" placeholder="z.B. Max Mustermann">
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Questions Container -->
+            <div id="questionsContainer"></div>
+
+            <!-- Results Section -->
+            <div class="section" id="results">
+                <div class="results-header">
+                    <h2>📊 Ihre Ergebnisse</h2>
+                    <p>Auswertung Ihrer emotionalen Intelligenz in 8 Bereichen</p>
+                </div>
+                <div id="resultsContent"></div>
+                
+                <div class="profile-overview">
+                    <h3 style="margin-bottom: 20px;">Profilübersicht</h3>
+                    <table class="profile-table">
+                        <thead>
+                            <tr>
+                                <th>Bereich</th>
+                                <th>Punkte</th>
+                                <th>Bewertung</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profileTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compare Tab -->
+        <div class="tab-content" id="compareTab">
+            <div class="upload-section">
+                <h2>Ergebnisse hochladen</h2>
+                <p style="margin-bottom: 20px; color: #7f8c8d;">Laden Sie eine oder mehrere JSON-Dateien hoch, um die Ergebnisse zu vergleichen.</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
+                    <p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Dateien hierher ziehen</p>
+                    <p style="color: #7f8c8d; margin-bottom: 15px;">oder</p>
+                    <button class="btn btn-primary">Dateien auswählen</button>
+                    <input type="file" id="fileInput" accept=".json" multiple>
+                </div>
+
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="comparison-chart" id="comparisonChart">
+                <h2>Vergleich der Ergebnisse</h2>
+                <div id="comparisonContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Hinweis:</strong> Dieser Test basiert auf Selbstauskunft und dient nur zur Orientierung. Er ist keine psychologische Diagnose.</p>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-content">
+            <h3>Export JSON</h3>
+            <textarea id="exportData" readonly></textarea>
+            <div class="export-buttons">
+                <button class="btn btn-success" id="btnCopyJSON">In Zwischenablage kopieren</button>
+                <button class="btn btn-primary" id="btnDownloadJSON">Als Datei herunterladen</button>
+                <button class="btn btn-secondary" id="btnCloseModal">Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fragen-Daten (80 Items)
+        const questions = [
+            { id: 'x01', text: 'Ich weiß immer, welche Emotionen mich im Augenblick bewegen.' },
+            { id: 'x02', text: 'Mit leidvollen Erfahrungen und Gefühlen kann ich gut umgehen.' },
+            { id: 'x03', text: 'Meine Wertvorstellungen und Ziele leiten mich in meinem täglichen Verhalten.' },
+            { id: 'x04', text: 'In stressreichen Situationen behalte ich meinen Kopf und kann vernünftige Entscheidungen treffen.' },
+            { id: 'x05', text: 'Ich kann gut nachvollziehen, welche Gefühle mich zu bestimmten Handlungen veranlassen.' },
+            { id: 'x06', text: 'Ich neige öfter zu Stimmungsschwankungen.' },
+            { id: 'x07', text: 'Wenn ich wütend bin, schaffe ich es rasch, mich wieder zu beruhigen.' },
+            { id: 'x08', text: 'Manchmal übertreibe ich es und bekomme dann nachher ein schlechtes Gewissen.' },
+            { id: 'x09', text: 'Ich bin häufig unzufrieden mit mir.' },
+            { id: 'x10', text: 'Ich kann meine Gefühle oft nicht so zeigen, wie ich es gern möchte.' },
+            { id: 'x11', text: 'Ich gehe recht unbefangen auf andere Menschen zu.' },
+            { id: 'x12', text: 'Auch wenn ich mich nicht optimal vorbereitet habe, kann ich anderen gegenüber selbstbewusst auftreten.' },
+            { id: 'x13', text: 'Ich bin davon überzeugt, dass ich die Dinge im Großen und Ganzen gut in den Griff bekomme.' },
+            { id: 'x14', text: 'Ich traue mir etwas zu.' },
+            { id: 'x15', text: 'Ich kann gut damit umgehen, wenn mich jemand kritisiert.' },
+            { id: 'x16', text: 'Wenn ich etwas wirklich will, kann mich kaum etwas davon abbringen.' },
+            { id: 'x17', text: 'Ich mache mir oft Gedanken, was andere wohl von mir denken.' },
+            { id: 'x18', text: 'Wenn ich eine Panne habe, ist mir das sehr peinlich.' },
+            { id: 'x19', text: 'Ich kann meine Meinung auch dann vertreten, wenn andere dagegen sind.' },
+            { id: 'x20', text: 'Es macht mir nichts aus, wenn andere mich übertrumpfen.' },
+            { id: 'x21', text: 'Ich habe mich schon immer schwer damit getan, etwas Neues auszuprobieren.' },
+            { id: 'x22', text: 'Ich bin aufgeschlossen für neue Erfahrungen.' },
+            { id: 'x23', text: 'Ich finde mich in neuen Situationen schnell zurecht.' },
+            { id: 'x24', text: 'Ich halte an lieb gewordenen Gewohnheiten fest.' },
+            { id: 'x25', text: 'Ich kann mich gut auf neue Situationen einstellen.' },
+            { id: 'x26', text: 'Es fällt mir leicht, mich auf neue Menschen einzustellen.' },
+            { id: 'x27', text: 'In fremder Umgebung bin ich oft unsicher.' },
+            { id: 'x28', text: 'Ich brauche lange, um mich an neue Umstände zu gewöhnen.' },
+            { id: 'x29', text: 'Ich kann mich gut auf neue Aufgaben einstellen.' },
+            { id: 'x30', text: 'Ich bleibe lieber bei dem, was ich kenne.' },
+            { id: 'x31', text: 'Wenn etwas schief geht, nehme ich es mir sehr zu Herzen.' },
+            { id: 'x32', text: 'Ich bin oft unzufrieden.' },
+            { id: 'x33', text: 'Ich bin manchmal sehr pessimistisch.' },
+            { id: 'x34', text: 'Ich sehe häufig die Probleme und Schwierigkeiten.' },
+            { id: 'x35', text: 'Ich kann mich auch über Kleinigkeiten freuen.' },
+            { id: 'x36', text: 'Ich bin im Großen und Ganzen ein optimistischer Mensch.' },
+            { id: 'x37', text: 'Ich kann gut über mich selbst lachen.' },
+            { id: 'x38', text: 'Ich ärgere mich oft über Dinge, die ich nicht ändern kann.' },
+            { id: 'x39', text: 'Ich lasse mich nicht so leicht aus der Ruhe bringen.' },
+            { id: 'x40', text: 'Ich kann auch in schwierigen Situationen gelassen bleiben.' },
+            { id: 'x41', text: 'Ich setze mir hohe Ziele.' },
+            { id: 'x42', text: 'Ich bin bereit, mich anzustrengen, um meine Ziele zu erreichen.' },
+            { id: 'x43', text: 'Ich bin ehrgeizig.' },
+            { id: 'x44', text: 'Ich lasse mich leicht ablenken.' },
+            { id: 'x45', text: 'Ich gebe schnell auf, wenn etwas schwierig wird.' },
+            { id: 'x46', text: 'Ich schiebe unangenehme Aufgaben gern auf.' },
+            { id: 'x47', text: 'Ich arbeite zielstrebig.' },
+            { id: 'x48', text: 'Ich kann mich gut motivieren.' },
+            { id: 'x49', text: 'Ich bin manchmal bequem.' },
+            { id: 'x50', text: 'Ich kann mich gut konzentrieren.' },
+            { id: 'x51', text: 'Ich glaube, dass man im Grunde niemandem trauen kann.' },
+            { id: 'x52', text: 'Ich rechne eher damit, dass mich andere ausnutzen.' },
+            { id: 'x53', text: 'Ich bin misstrauisch.' },
+            { id: 'x54', text: 'Ich finde, die meisten Menschen sind im Grunde ehrlich.' },
+            { id: 'x55', text: 'Ich denke oft, dass andere mich hintergehen wollen.' },
+            { id: 'x56', text: 'Ich unterstelle anderen schnell schlechte Absichten.' },
+            { id: 'x57', text: 'Ich erwarte häufig das Schlimmste von anderen.' },
+            { id: 'x58', text: 'Ich kann anderen Menschen grundsätzlich vertrauen.' },
+            { id: 'x59', text: 'Ich bin vorsichtig, wenn ich neue Menschen kennenlerne.' },
+            { id: 'x60', text: 'Ich glaube, dass viele Menschen egoistisch sind.' },
+            { id: 'x61', text: 'Ich kann mich gut in andere hineinversetzen.' },
+            { id: 'x62', text: 'Ich merke schnell, wenn es jemandem schlecht geht.' },
+            { id: 'x63', text: 'Ich kann mitfühlen, wenn andere leiden.' },
+            { id: 'x64', text: 'Ich nehme Anteil an den Problemen anderer.' },
+            { id: 'x65', text: 'Ich bin einfühlsam.' },
+            { id: 'x66', text: 'Es ist mir oft egal, wie es anderen geht.' },
+            { id: 'x67', text: 'Ich habe ein gutes Gespür für die Gefühle anderer.' },
+            { id: 'x68', text: 'Ich kann mit den Gefühlen anderer oft nichts anfangen.' },
+            { id: 'x69', text: 'Ich höre anderen gut zu.' },
+            { id: 'x70', text: 'Ich kann mich schwer in andere hineinversetzen.' },
+            { id: 'x71', text: 'Ich drücke mich gern vor Verantwortung.' },
+            { id: 'x72', text: 'Ich stehe zu meinen Fehlern.' },
+            { id: 'x73', text: 'Ich halte meine Zusagen ein.' },
+            { id: 'x74', text: 'Ich übernehme Verantwortung für mein Handeln.' },
+            { id: 'x75', text: 'Ich schiebe die Schuld oft auf andere.' },
+            { id: 'x76', text: 'Ich kann gut Verantwortung übernehmen.' },
+            { id: 'x77', text: 'Man kann sich auf mich verlassen.' },
+            { id: 'x78', text: 'Ich versuche, unangenehme Konsequenzen zu vermeiden.' },
+            { id: 'x79', text: 'Ich handle gewissenhaft.' },
+            { id: 'x80', text: 'Wenn es um eine neue Arbeitszuteilung geht, hoffe ich, dass ich nicht zu viel Verantwortung übernehmen muss.' }
+        ];
+
+        // Skalen-Definitionen
+        const scales = [
+            { id: 'E1', name: 'Selbsteinsicht und Selbstkontrolle', range: [1, 10] },
+            { id: 'E2', name: 'Selbstsicherheit und Selbstvertrauen', range: [11, 20] },
+            { id: 'E3', name: 'Offenheit und Anpassungsfähigkeit', range: [21, 30] },
+            { id: 'E4', name: 'Ausgeglichenheit und Optimismus', range: [31, 40] },
+            { id: 'E5', name: 'Leistungsorientierung', range: [41, 50] },
+            { id: 'E6', name: 'Vertrauen in die Mitmenschen', range: [51, 60] },
+            { id: 'E7', name: 'Einfühlungsvermögen und Mitgefühl', range: [61, 70] },
+            { id: 'E8', name: 'Verantwortungsbewusstsein', range: [71, 80] }
+        ];
+
+        // Antworten speichern
+        let answers = {};
+        let uploadedResults = [];
+
+        // Farben für Vergleich
+        const colors = [
+            '#3498db', '#e74c3c', '#27ae60', '#f39c12', 
+            '#9b59b6', '#1abc9c', '#e67e22', '#34495e'
+        ];
+
+        // Init
+        $(document).ready(function() {
+            renderQuestions();
+            loadFromStorage();
+            loadNameFromStorage();
+            setupEventListeners();
+        });
+
+        // Fragen rendern
+        function renderQuestions() {
+            const container = $('#questionsContainer');
+            
+            scales.forEach(scale => {
+                const section = $('<div class="section"></div>');
+                const header = $(`
+                    <div class="section-header">
+                        <div class="section-header-content">
+                            <h2>${scale.id}: ${scale.name}</h2>
+                            <div class="section-subtitle">Fragen ${scale.range[0]} bis ${scale.range[1]}</div>
+                        </div>
+                        <div class="section-collapse-icon">▼</div>
+                    </div>
+                `);
+                section.append(header);
+                
+                const questionsContainer = $('<div class="section-questions"></div>');
+
+                for (let i = scale.range[0]; i <= scale.range[1]; i++) {
+                    const q = questions[i - 1];
+                    const card = $(`
+                        <div class="question-card" data-question="${q.id}">
+                            <div class="question-content">
+                                <div class="question-id">${q.id}</div>
+                                <div class="question-text">${q.text}</div>
+                                <div class="question-scale">
+                                    ${[0, 1, 2, 3, 4].map(val => `
+                                        <div class="scale-option">
+                                            <input type="radio" name="${q.id}" value="${val}" id="${q.id}_${val}">
+                                            <label for="${q.id}_${val}">${val}</label>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    questionsContainer.append(card);
+                }
+                
+                section.append(questionsContainer);
+                container.append(section);
+            });
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Tabs
+            $('.tab').on('click', function() {
+                const tabName = $(this).data('tab');
+                $('.tab').removeClass('active');
+                $(this).addClass('active');
+                $('.tab-content').removeClass('active');
+                $(`#${tabName}Tab`).addClass('active');
+            });
+
+            // Name speichern
+            $('#userName').on('input', function() {
+                localStorage.setItem('eq_test_name', $(this).val());
+            });
+
+            // Section collapse/expand
+            $(document).on('click', '.section-header', function() {
+                const questions = $(this).siblings('.section-questions');
+                $(this).toggleClass('collapsed');
+                questions.toggleClass('collapsed');
+            });
+
+            // 
+            // Radio-Button Änderungen
+            $('input[type="radio"]').on('change', function() {
+                const name = $(this).attr('name');
+                const value = parseInt($(this).val());
+                answers[name] = value;
+                
+                // Markierung entfernen
+                $(this).closest('.question-card').removeClass('unanswered');
+                
+                // Auto-Save
+                saveToStorage();
+            });
+
+            // Auswerten
+            $('#btnEvaluate').on('click', evaluate);
+
+            // Zurücksetzen
+            $('#btnReset').on('click', reset);
+
+            // Export
+            $('#btnExport').on('click', exportJSON);
+
+            // Upload Area
+            $('#uploadArea').on('click', function() {
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').on('change', function(e) {
+                handleFiles(e.target.files);
+            });
+
+            // Drag & Drop
+            $('#uploadArea').on('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).addClass('dragover');
+            });
+
+            $('#uploadArea').on('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('dragover');
+            });
+
+            $('#uploadArea').on('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('dragover');
+                handleFiles(e.originalEvent.dataTransfer.files);
+            });
+
+            // Modal schließen
+            $('#btnCloseModal').on('click', function() {
+                $('#exportModal').removeClass('show');
+            });
+
+            // JSON kopieren
+            $('#btnCopyJSON').on('click', function() {
+                const text = $('#exportData').val();
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('JSON wurde in die Zwischenablage kopiert!');
+                });
+            });
+
+            // JSON herunterladen
+            $('#btnDownloadJSON').on('click', function() {
+                const text = $('#exportData').val();
+                const blob = new Blob([text], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `eq-test-${new Date().toISOString().slice(0,10)}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            // Modal außerhalb klicken
+            $('#exportModal').on('click', function(e) {
+                if ($(e.target).is('#exportModal')) {
+                    $(this).removeClass('show');
+                }
+            });
+        }
+
+        // Validierung
+        function validate() {
+            const unanswered = [];
+            
+            for (let i = 1; i <= 80; i++) {
+                const id = 'x' + String(i).padStart(2, '0');
+                if (answers[id] === undefined) {
+                    unanswered.push(id);
+                }
+            }
+
+            if (unanswered.length > 0) {
+                // Fehlermeldung
+                const msg = `⚠️ Bitte beantworten Sie noch ${unanswered.length} Frage(n), bevor Sie auswerten können.`;
+                $('#errorMessage').text(msg).addClass('show');
+
+                // Erste unbeantwortete Frage markieren und scrollen
+                const firstUnanswered = unanswered[0];
+                const card = $(`.question-card[data-question="${firstUnanswered}"]`);
+                
+                // Alle Markierungen entfernen
+                $('.question-card').removeClass('unanswered');
+                
+                // Unbeantwortete markieren
+                unanswered.forEach(id => {
+                    $(`.question-card[data-question="${id}"]`).addClass('unanswered');
+                });
+
+                // Zur ersten scrollen
+                $('html, body').animate({
+                    scrollTop: card.offset().top - 100
+                }, 500);
+
+                return false;
+            }
+
+            $('#errorMessage').removeClass('show');
+            return true;
+        }
+
+        // Auswertung
+        function evaluate() {
+            if (!validate()) return;
+
+            const x = {};
+            for (let i = 1; i <= 80; i++) {
+                const id = 'x' + String(i).padStart(2, '0');
+                x[i] = answers[id];
+            }
+
+            // Formeln (exakt nach Vorgabe)
+            const scores = {
+                E1: clamp(+x[1] +x[2] +x[3] +x[4] +x[5] -x[6] +x[7] -x[8] -x[9] -x[10] + 16, 0, 40),
+                E2: clamp(+x[11] +x[12] +x[13] +x[14] +x[15] +x[16] -x[17] -x[18] +x[19] +x[20] + 8, 0, 40),
+                E3: clamp(-x[21] +x[22] +x[23] -x[24] +x[25] +x[26] -x[27] -x[28] +x[29] -x[30] + 20, 0, 40),
+                E4: clamp(-x[31] -x[32] -x[33] -x[34] +x[35] +x[36] +x[37] -x[38] +x[39] +x[40] + 20, 0, 40),
+                E5: clamp(+x[41] +x[42] +x[43] -x[44] -x[45] -x[46] +x[47] +x[48] -x[49] +x[50] + 16, 0, 40),
+                E6: clamp(-x[51] -x[52] -x[53] +x[54] -x[55] -x[56] -x[57] +x[58] -x[59] -x[60] + 32, 0, 40),
+                E7: clamp(+x[61] +x[62] +x[63] +x[64] +x[65] -x[66] +x[67] -x[68] +x[69] -x[70] + 12, 0, 40),
+                E8: clamp(-x[71] +x[72] +x[73] +x[74] -x[75] +x[76] +x[77] -x[78] +x[79] -x[80] + 16, 0, 40)
+            };
+
+            const classes = {};
+            Object.keys(scores).forEach(key => {
+                classes[key] = getClass(scores[key]);
+            });
+
+            displayResults(scores, classes);
+        }
+
+        // Clamp Funktion
+        function clamp(val, min, max) {
+            return Math.max(min, Math.min(max, val));
+        }
+
+        // Bewertungsklasse
+        function getClass(score) {
+            if (score <= 8) return 'schwach ausgeprägt';
+            if (score <= 16) return 'unterdurchschnittlich';
+            if (score <= 24) return 'durchschnittlich';
+            if (score <= 32) return 'überdurchschnittlich';
+            return 'stark ausgeprägt';
+        }
+
+        // Ergebnisse anzeigen
+        function displayResults(scores, classes) {
+            const content = $('#resultsContent');
+            const table = $('#profileTable');
+            
+            content.empty();
+            table.empty();
+
+            scales.forEach(scale => {
+                const score = scores[scale.id];
+                const className = classes[scale.id];
+                const percentage = (score / 40) * 100;
+
+                const card = $(`
+                    <div class="result-card">
+                        <div class="result-header">
+                            <div class="result-title">${scale.id}: ${scale.name}</div>
+                            <div class="result-score">${score} / 40</div>
+                            <div class="result-class">${className}</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${percentage}%">
+                                ${percentage.toFixed(0)}%
+                            </div>
+                        </div>
+                    </div>
+                `);
+                content.append(card);
+
+                // Tabelle
+                const row = $(`
+                    <tr>
+                        <td><strong>${scale.id}:</strong> ${scale.name}</td>
+                        <td>${score} / 40</td>
+                        <td>${className}</td>
+                    </tr>
+                `);
+                table.append(row);
+            });
+
+            // Fragen ausblenden
+            $('#questionsContainer .section').hide();
+            
+            // Scrollen zu Ergebnissen
+            $('#results').show();
+            $('html, body').animate({
+                scrollTop: $('#results').offset().top - 80
+            }, 800);
+        }
+
+        // Zurücksetzen
+        function reset() {
+            if (!confirm('Möchten Sie wirklich alle Antworten und Ergebnisse löschen?')) {
+                return;
+            }
+
+            answers = {};
+            $('input[type="radio"]').prop('checked', false);
+            $('.question-card').removeClass('unanswered');
+            $('#errorMessage').removeClass('show');
+            $('#results').hide();
+            localStorage.removeItem('eq_test_answers');
+            
+            // Fragen wieder anzeigen
+            $('#questionsContainer .section').show();
+            $('.section-header').removeClass('collapsed');
+            $('.section-questions').removeClass('collapsed');
+
+            $('html, body').animate({ scrollTop: 0 }, 500);
+        }
+
+        // Export JSON
+        function exportJSON() {
+            if (!validate()) {
+                alert('Bitte beantworten Sie zuerst alle Fragen.');
+                return;
+            }
+
+            const userName = $('#userName').val().trim() || 'Unbenannt';
+
+            // Neu berechnen
+            const x = {};
+            for (let i = 1; i <= 80; i++) {
+                const id = 'x' + String(i).padStart(2, '0');
+                x[i] = answers[id];
+            }
+
+            const scores = {
+                E1: clamp(+x[1] +x[2] +x[3] +x[4] +x[5] -x[6] +x[7] -x[8] -x[9] -x[10] + 16, 0, 40),
+                E2: clamp(+x[11] +x[12] +x[13] +x[14] +x[15] +x[16] -x[17] -x[18] +x[19] +x[20] + 8, 0, 40),
+                E3: clamp(-x[21] +x[22] +x[23] -x[24] +x[25] +x[26] -x[27] -x[28] +x[29] -x[30] + 20, 0, 40),
+                E4: clamp(-x[31] -x[32] -x[33] -x[34] +x[35] +x[36] +x[37] -x[38] +x[39] +x[40] + 20, 0, 40),
+                E5: clamp(+x[41] +x[42] +x[43] -x[44] -x[45] -x[46] +x[47] +x[48] -x[49] +x[50] + 16, 0, 40),
+                E6: clamp(-x[51] -x[52] -x[53] +x[54] -x[55] -x[56] -x[57] +x[58] -x[59] -x[60] + 32, 0, 40),
+                E7: clamp(+x[61] +x[62] +x[63] +x[64] +x[65] -x[66] +x[67] -x[68] +x[69] -x[70] + 12, 0, 40),
+                E8: clamp(-x[71] +x[72] +x[73] +x[74] -x[75] +x[76] +x[77] -x[78] +x[79] -x[80] + 16, 0, 40)
+            };
+
+            const classes = {};
+            Object.keys(scores).forEach(key => {
+                classes[key] = getClass(scores[key]);
+            });
+
+            const exportData = {
+                name: userName,
+                answers: answers,
+                scores: scores,
+                classes: classes,
+                timestamp: new Date().toISOString()
+            };
+
+            $('#exportData').val(JSON.stringify(exportData, null, 2));
+            $('#exportModal').addClass('show');
+        }
+
+        // Handle File Upload
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type === 'application/json') {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            if (data.scores && data.name) {
+                                uploadedResults.push(data);
+                                updateFileList();
+                                updateComparison();
+                            } else {
+                                alert(`Ungültige Datei: ${file.name}`);
+                            }
+                        } catch (err) {
+                            alert(`Fehler beim Lesen der Datei: ${file.name}`);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            });
+        }
+
+        // Update File List
+        function updateFileList() {
+            const list = $('#fileList');
+            list.empty();
+
+            if (uploadedResults.length === 0) {
+                return;
+            }
+
+            uploadedResults.forEach((result, index) => {
+                const item = $(`
+                    <div class="file-item">
+                        <div class="file-item-name">${result.name}</div>
+                        <button class="file-item-btn" data-index="${index}">Entfernen</button>
+                    </div>
+                `);
+                
+                item.find('button').on('click', function() {
+                    const idx = parseInt($(this).data('index'));
+                    uploadedResults.splice(idx, 1);
+                    updateFileList();
+                    updateComparison();
+                });
+
+                list.append(item);
+            });
+        }
+
+        // Update Comparison
+        function updateComparison() {
+            if (uploadedResults.length === 0) {
+                $('#comparisonChart').removeClass('show');
+                return;
+            }
+
+            $('#comparisonChart').addClass('show');
+            const content = $('#comparisonContent');
+            content.empty();
+
+            scales.forEach(scale => {
+                const section = $(`
+                    <div class="comparison-scale">
+                        <div class="comparison-scale-header">${scale.id}: ${scale.name}</div>
+                        <div class="comparison-bars"></div>
+                    </div>
+                `);
+
+                const bars = section.find('.comparison-bars');
+
+                uploadedResults.forEach((result, index) => {
+                    const score = result.scores[scale.id];
+                    const percentage = (score / 40) * 100;
+                    const color = colors[index % colors.length];
+
+                    const row = $(`
+                        <div class="comparison-bar-row">
+                            <div class="comparison-bar-name">${result.name}</div>
+                            <div class="comparison-bar-container">
+                                <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
+                                </div>
+                            </div>
+                            <div class="comparison-bar-score">${score} / 40</div>
+                        </div>
+                    `);
+
+                    bars.append(row);
+                });
+
+                content.append(section);
+            });
+        }
+
+        // Name aus Storage laden
+        function loadNameFromStorage() {
+            const name = localStorage.getItem('eq_test_name');
+            if (name) {
+                $('#userName').val(name);
+            }
+        }
+
+        // LocalStorage
+        function saveToStorage() {
+            localStorage.setItem('eq_test_answers', JSON.stringify(answers));
+        }
+
+        function loadFromStorage() {
+            const stored = localStorage.getItem('eq_test_answers');
+            if (stored) {
+                answers = JSON.parse(stored);
+                
+                // Antworten wiederherstellen
+                Object.keys(answers).forEach(id => {
+                    $(`input[name="${id}"][value="${answers[id]}"]`).prop('checked', true);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
