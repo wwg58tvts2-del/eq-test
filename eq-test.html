@@ -982,6 +982,7 @@
             <div class="toolbar-buttons">
                 <button class="btn btn-primary" id="btnEvaluate">✓ Auswerten</button>
                 <button class="btn btn-secondary" id="btnReset">↻ Zurücksetzen</button>
+                <button class="btn btn-info" id="btnLoadResult">📂 Auswertung laden</button>
                 <button class="btn btn-success" id="btnExport">💾 Export JSON</button>
                 <button class="btn btn-primary" id="btnExportPDF" style="display: none;">📄 Als PDF exportieren</button>
             </div>
@@ -1005,6 +1006,9 @@
 
             <!-- Error Message -->
             <div class="error-message" id="errorMessage"></div>
+
+            <!-- Hidden File Input für Laden einer Auswertung -->
+            <input type="file" id="loadResultInput" accept=".json" style="display: none;">
 
             <!-- Questions Container -->
             <div id="questionsContainer"></div>
@@ -1323,7 +1327,7 @@
                 
                 // Buttons je nach Tab ein-/ausblenden
                 if (tabName === 'survey') {
-                    $('#btnEvaluate, #btnReset, #btnExport').show();
+                    $('#btnEvaluate, #btnReset, #btnExport, #btnLoadResult').show();
                     // PDF-Button nur zeigen wenn Auswertung durchgeführt wurde
                     if ($('#results').is(':visible') && $('#resultsContent').children().length > 0) {
                         $('#btnExportPDF').show();
@@ -1331,7 +1335,7 @@
                         $('#btnExportPDF').hide();
                     }
                 } else if (tabName === 'compare') {
-                    $('#btnEvaluate, #btnReset, #btnExport').hide();
+                    $('#btnEvaluate, #btnReset, #btnExport, #btnLoadResult').hide();
                     // PDF-Button nur zeigen wenn Vergleiche vorhanden
                     if ($('.comparison-scale').length > 0) {
                         $('#btnExportPDF').show();
@@ -1393,6 +1397,21 @@
 
             // Export
             $('#btnExport').on('click', exportJSON);
+
+            // Auswertung laden
+            $('#btnLoadResult').on('click', function(e) {
+                e.preventDefault();
+                $('#loadResultInput').click();
+            });
+
+            $('#loadResultInput').on('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    loadResult(file);
+                }
+                // Input zurücksetzen damit dieselbe Datei erneut geladen werden kann
+                $(this).val('');
+            });
 
             // PDF Export
             $('#btnExportPDF').on('click', function() {
@@ -1624,6 +1643,56 @@
             $('.section-questions').removeClass('collapsed');
 
             $('html, body').animate({ scrollTop: 0 }, 500);
+        }
+
+        // Auswertung laden
+        function loadResult(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Validierung
+                    if (!data.answers || !data.name) {
+                        alert('Ungültige Datei: Die Datei enthält keine gültige Auswertung.');
+                        return;
+                    }
+                    
+                    // Name laden
+                    $('#userName').val(data.name || 'Unbenannt');
+                    
+                    // Antworten laden
+                    answers = data.answers;
+                    
+                    // Radio-Buttons setzen
+                    Object.keys(answers).forEach(questionId => {
+                        const value = answers[questionId];
+                        $(`input[name="${questionId}"][value="${value}"]`).prop('checked', true);
+                    });
+                    
+                    // In localStorage speichern
+                    localStorage.setItem('eq_test_answers', JSON.stringify(answers));
+                    
+                    // Markierungen entfernen
+                    $('.question-card').removeClass('unanswered');
+                    
+                    // Erfolgsmeldung
+                    alert(`Auswertung von "${data.name}" wurde geladen.\nDatum: ${new Date(data.timestamp).toLocaleString('de-DE')}\n\nKlicken Sie auf "Auswerten" um die Ergebnisse anzuzeigen.`);
+                    
+                    // Nach oben scrollen
+                    $('html, body').animate({ scrollTop: 0 }, 500);
+                    
+                } catch (error) {
+                    console.error('Fehler beim Laden der Auswertung:', error);
+                    alert('Fehler beim Laden der Datei: Die Datei konnte nicht gelesen werden.');
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Fehler beim Lesen der Datei.');
+            };
+            
+            reader.readAsText(file);
         }
 
         // Export JSON
