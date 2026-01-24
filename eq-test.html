@@ -721,7 +721,7 @@
                     <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
                     <p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Dateien hierher ziehen</p>
                     <p style="color: #7f8c8d; margin-bottom: 15px;">oder</p>
-                    <button class="btn btn-primary">Dateien auswählen</button>
+                    <button class="btn btn-primary" id="btnSelectFiles">Dateien auswählen</button>
                     <input type="file" id="fileInput" accept=".json" multiple>
                 </div>
 
@@ -969,7 +969,9 @@
             $('#btnExport').on('click', exportJSON);
 
             // Upload Area
-            $('#uploadArea').on('click', function() {
+            $('#btnSelectFiles').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 $('#fileInput').click();
             });
 
@@ -1017,7 +1019,8 @@
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `eq-test-${new Date().toISOString().slice(0,10)}.json`;
+                const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
+                a.download = `eq-test-${timestamp}.json`;
                 a.click();
                 URL.revokeObjectURL(url);
             });
@@ -1306,12 +1309,14 @@
                     const score = result.scores[scale.id];
                     const percentage = (score / 40) * 100;
                     const color = colors[index % colors.length];
+                    const className = getClass(score);
 
                     const row = $(`
                         <div class="comparison-bar-row">
                             <div class="comparison-bar-name">${result.name}</div>
                             <div class="comparison-bar-container">
                                 <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
+                                    ${className}
                                 </div>
                             </div>
                             <div class="comparison-bar-score">${score} / 40</div>
