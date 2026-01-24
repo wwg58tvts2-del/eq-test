@@ -10,24 +10,31 @@ Dieses Tool ermöglicht es Benutzern, ihre emotionale Intelligenz anhand von 80 
 
 ### Befragung
 - **80 Items**: Umfassender Fragebogen zur Selbsteinschätzung
-- **5-stufige Likert-Skala**: Von "nicht zutreffend" bis "ganz zutreffend"
+- **5-stufige Likert-Skala**: Von "nicht zutreffend" bis "ganz zutreffend" mit Beschreibungen
 - **Auto-Save**: Antworten werden automatisch im Browser gespeichert
 - **Validierung**: Prüfung auf Vollständigkeit mit visuellen Hinweisen
 - **Einklappbare Bereiche**: Übersichtliche Navigation durch die Fragebereiche
+- **Testergebnis laden**: Import vorheriger Auswertungen (schreibgeschützt)
+- **Toast-Benachrichtigungen**: Elegante Rückmeldungen statt Browser-Alerts
 
 ### Auswertung
 - **8 Dimensionen**: Detaillierte Bewertung in allen Bereichen emotionaler Intelligenz
 - **Visuelles Feedback**: Fortschrittsbalken und Bewertungsklassen
 - **Profilübersicht**: Tabellarische Zusammenfassung aller Ergebnisse
 - **Bewertungsskala**: Von "schwach ausgeprägt" bis "stark ausgeprägt"
+- **Antwortdetails**: Vollständige Übersicht aller 80 Antworten im PDF (gruppiert nach Dimensionen)
 
 ### Export & Vergleich
 - **JSON-Export**: Speicherung der Ergebnisse mit Zeitstempel (bis auf Sekunden genau)
-- **PDF-Export**: Professioneller Export der Vergleichsansicht als DIN A4 PDF
-  - Optimierte Formatierung mit 15mm Rändern
+- **Doppelter PDF-Export**: 
+  - **Umfrage-PDF**: Einzelauswertung mit allen Antworten, Ergebnissen und Berechnungsmethodik
+  - **Vergleichs-PDF**: Gegenüberstellung mehrerer Testergebnisse mit Statistiken
+- **PDF-Optimierung**: 
+  - DIN A4-Format mit 15mm Rändern
   - Automatische Seitenzahlen
-  - Exportdatum und -zeit im Footer
-  - Mehrseitiges Layout bei vielen Daten
+  - Intelligente Seitenumbrüche (keine Dimensionen werden getrennt)
+  - Quellenangabe: E-Test nach Paukert mit URL
+  - Berechnungsmethodik-Seite mit allen Formeln
 - **Drag & Drop**: Einfaches Hochladen mehrerer Ergebnisse
 - **Vergleichsansicht**: Farbcodierte Balkendiagramme zum Vergleich mehrerer Personen
 - **Statistische Kennwerte** (optional aktivierbar):
@@ -35,7 +42,15 @@ Dieses Tool ermöglicht es Benutzern, ihre emotionale Intelligenz anhand von 80 
   - **Median**: Robuster mittlerer Wert, unempfindlich gegen Ausreißer
   - **Spannweite**: Min/Max-Differenz zur Erkennung von Wahrnehmungslücken
 - **Konfigurierbare Anzeige**: Toggle-Switches für alle statistischen Kennwerte
-- **Visuelle Trennung**: Klare Abgrenzung zwischen Einzelergebnissen und berechneten Werten
+- **Visuelle Trennung**: Card-Design mit klarer Abgrenzung zwischen Einzelergebnissen und berechneten Werten
+
+### Benutzeroberfläche
+- **Sticky Navigation**: Header und Aktionsleiste bleiben beim Scrollen sichtbar
+- **Intelligente Button-Organisation**: Kontextabhängige Anzeige von Aktionen
+- **Dynamische Labels**: Action-Group-Beschriftungen werden automatisch ausgeblendet wenn leer
+- **Toast-System**: Farbcodierte Benachrichtigungen (Erfolg/Fehler/Warnung/Info)
+- **Responsive Design**: Optimiert für Desktop, Tablet und Mobile
+- **Schreibschutz**: Geladene Testergebnisse sind nicht editierbar
 
 ## 🎯 Dimensionen
 
@@ -81,12 +96,21 @@ cd eq-test
 - Bewertungsklassen geben qualitative Einschätzungen
 
 ### 3. Ergebnisse exportieren
-1. Auf "Export JSON" klicken
+1. Auf "💾 JSON" klicken
 2. JSON-Daten in Zwischenablage kopieren oder als Datei speichern
 3. Dateiname enthält automatisch Datum und Uhrzeit (inkl. Sekunden)
 
-### 4. Ergebnisse vergleichen
-1. Zum Tab "Vergleichen" wechseln
+### 4. PDF-Export (Einzelauswertung)
+1. Nach dem Auswerten erscheint "📄 PDF" Button
+2. PDF enthält:
+   - Vollständige Ergebnisübersicht
+   - Alle 80 Antworten gruppiert nach Dimensionen (E1-E8)
+   - Berechnungsmethodik mit Formeln
+   - Quellenangabe (E-Test nach Paukert)
+3. Jede Dimension beginnt auf einer neuen Seite
+
+### 5. Ergebnisse vergleichen
+1. Zum Tab "📊 Vergleichen" wechseln
 2. Anzeigeeinstellungen konfigurieren (optional):
    - Mittelwert anzeigen (empfindlich gegen Ausreißer)
    - Median anzeigen (robust gegen Ausreißer)
@@ -95,10 +119,12 @@ cd eq-test
 4. Vergleich in farbcodierten Balkendiagrammen betrachten
 5. Optional: Als PDF exportieren für Dokumentation
 
-### 5. PDF exportieren
-1. Im Vergleichs-Tab JSON-Dateien hochladen
-2. Button "📄 Als PDF exportieren" erscheint automatisch
-3. PDF wird mit professioneller Formatierung heruntergeladen
+### 6. Testergebnis laden
+1. Auf "📂 Auswertung laden" klicken
+2. JSON-Datei einer vorherigen Auswertung auswählen
+3. Name und alle Antworten werden geladen (schreibgeschützt)
+4. Mit "Auswerten" Ergebnisse anzeigen lassen
+5. "Zurücksetzen" reaktiviert die Bearbeitungsmöglichkeit
 
 ## 📊 Bewertungssystem
 
@@ -155,12 +181,44 @@ Jede Dimension wird auf einer Skala von 0-40 Punkten bewertet:
 
 ### Features
 - Responsive Design für alle Bildschirmgrößen
-- Sticky Header für konstante Navigation
+- Sticky Header und Aktionsleiste für konstante Navigation
+- Z-Index-Hierarchie für sauberes Scroll-Verhalten (Header überdeckt Action-Bar)
 - Smooth Scrolling zu relevanten Bereichen
 - Animierte Fortschrittsbalken
 - Drag & Drop für Datei-Upload
 - Toggle-Switches für statistische Kennwerte
 - Card-Design für visuelle Gruppierung der Dimensionen
+- Toast-Notification-System mit Farbcodierung:
+  - 🟢 Erfolg (grün)
+  - 🔴 Fehler (rot)
+  - 🟡 Warnung (orange)
+  - 🔵 Information (blau)
+- Intelligente Button-Verwaltung:
+  - Dynamisches Ein-/Ausblenden je nach Kontext
+  - Automatisches Verstecken leerer Action-Groups
+  - Tab-abhängige Sichtbarkeit
+
+## 🎨 Benutzeroberfläche
+
+### Navigation
+- **Sticky Header**: Titel und Info bleiben beim Scrollen sichtbar
+- **Sticky Action-Bar**: Buttons sind immer erreichbar, werden aber vom Header überdeckt
+- **Zwei Tabs**: "📝 Befragung" und "📊 Vergleichen"
+
+### Button-Organisation
+- **Aktionen-Gruppe**:
+  - ✓ Auswerten (primär)
+  - ↻ Zurücksetzen
+  - 📂 Auswertung laden
+- **Export-Gruppe**:
+  - 💾 JSON
+  - 📄 PDF (erscheint nach Auswertung)
+
+### Toast-Benachrichtigungen
+- Erscheinen unten rechts
+- Automatisches Ausblenden nach 4-6 Sekunden
+- Manuell schließbar mit X-Button
+- Slide-in/Slide-out Animationen
 
 ## 📄 JSON-Format
 
@@ -210,9 +268,24 @@ Martin Wiesner
 
 ## 🔄 Version
 
-2.0.0 - Januar 2026
+3.0.0 - Januar 2026
 
 ### Changelog
+
+**v3.0.0**
+- ✨ Doppelter PDF-Export (Umfrage + Vergleich)
+- ✨ Vollständige Antwortübersicht im PDF (alle 80 Fragen)
+- ✨ Berechnungsmethodik-Seite mit Formeln
+- ✨ Toast-Notification-System statt Browser-Alerts
+- ✨ Testergebnis-Ladefunktion mit Schreibschutz
+- ✨ Intelligente Button-Organisation mit Action-Groups
+- ✨ Dynamisches Ausblenden leerer Action-Group-Labels
+- 🎨 Sticky Navigation mit sauberer Z-Index-Hierarchie
+- 🎨 Verbesserter Footer mit strukturierten Informationen
+- 🎨 GitHub-Link prominent im Footer
+- 🐛 Saubere Überdeckung von Header und Action-Bar beim Scrollen
+- 📝 Quellenangabe (Paukert) in allen PDFs
+
 **v2.0.0**
 - ✨ PDF-Export mit professioneller DIN A4-Formatierung
 - ✨ Statistische Kennwerte: Mittelwert, Median, Spannweite
