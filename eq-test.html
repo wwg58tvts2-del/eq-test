@@ -760,15 +760,14 @@
         }
 
         .comparison-bar-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 200px 1fr 90px;
             align-items: center;
-            gap: 15px;
+            column-gap: 8px;
+            row-gap: 5px;
         }
 
         .comparison-bar-name {
-            width: 200px;
-            min-width: 200px;
-            max-width: 200px;
             font-weight: 500;
             color: #34495e;
             font-size: 14px;
@@ -777,7 +776,6 @@
         }
 
         .comparison-bar-container {
-            flex: 1;
             background: #ecf0f1;
             height: 30px;
             border-radius: 15px;
@@ -798,11 +796,11 @@
         }
 
         .comparison-bar-score {
-            min-width: 60px;
             text-align: right;
             font-weight: 600;
             color: #2c3e50;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         /* Toggle Switch */
@@ -2335,10 +2333,12 @@
                     const needsBorder = !showAverage && !showMedian;
                     const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
 
-                    const rangeBarContent = rangeValue > 0 ? `
-                                <div class="comparison-bar" style="width: ${rangePercentage}%; background: #9b59b6;">
+                    // Spannweiten-Balken: Immer volle Breite (100%)
+                    // Min/Max-Information im Balken, Delta rechts daneben
+                    const rangeBarContent = `
+                                <div class="comparison-bar" style="width: 100%; background: #9b59b6;">
                                     Min: ${minScore} | Max: ${maxScore}
-                                </div>` : '';
+                                </div>`;
 
                     const rangeRow = $(`
                         <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
@@ -2346,7 +2346,7 @@
                             <div class="comparison-bar-container">
                                 ${rangeBarContent}
                             </div>
-                            <div class="comparison-bar-score" style="font-weight: 700;">Δ ${rangeValue}</div>
+                            <div class="comparison-bar-score" style="font-weight: 700;">Δ ${rangeValue} (${rangePercentage.toFixed(1)}%)</div>
                         </div>
                     `);
 
