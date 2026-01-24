@@ -544,10 +544,14 @@
         }
 
         .comparison-bar-name {
-            min-width: 150px;
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;
             font-weight: 500;
             color: #34495e;
             font-size: 14px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .comparison-bar-container {
@@ -788,20 +792,68 @@
                 <h2>Ergebnisse hochladen</h2>
                 <p style="margin-bottom: 20px; color: #7f8c8d;">Laden Sie eine oder mehrere JSON-Dateien hoch, um die Ergebnisse zu vergleichen.</p>
                 
-                <div class="toggle-container">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="showAverage" checked>
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <label for="showAverage" class="toggle-label">Mittelwert anzeigen</label>
-                </div>
+                <div class="section" style="margin: 0 0 20px 0;">
+                    <div class="section-header collapsed" id="comparisonSettingsHeader">
+                        <div class="section-header-content">
+                            <h2 style="font-size: 18px;">⚙️ Anzeigeeinstellungen</h2>
+                            <div class="section-subtitle">Statistische Kennwerte konfigurieren</div>
+                        </div>
+                        <div class="section-collapse-icon">▼</div>
+                    </div>
+                    
+                    <div class="section-questions collapsed" id="comparisonSettings">
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showAverage" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showAverage" class="toggle-label">Mittelwert anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #f39c12; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #856404;">
+                                        <strong>Hinweis:</strong> Der Mittelwert ist empfindlich gegenüber Ausreißern. Die Mittelwertbildung ist nur innerhalb derselben Perspektive sinnvoll (z. B. nur Selbsteinschätzungen oder nur Fremdeinschätzungen).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div style="margin-bottom: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #f39c12;">
-                    <div style="display: flex; align-items: flex-start; gap: 10px;">
-                        <div style="font-size: 20px; line-height: 1;">💡</div>
-                        <div>
-                            <strong style="color: #856404;">Hinweis:</strong>
-                            <span style="color: #856404;"> Die Mittelwertbildung ist nur innerhalb derselben Perspektive sinnvoll (z. B. nur Selbsteinschätzungen oder nur Fremdeinschätzungen). Eine gemeinsame Mittelung unterschiedlicher Perspektiven liefert keine eindeutig interpretierbaren Ergebnisse.</span>
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showMedian" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showMedian" class="toggle-label">Median anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #3498db; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #2c5f7f;">
+                                        <strong>Hinweis:</strong> Der Median ist robust gegenüber Ausreißern und gibt den mittleren Wert an. Bei einer ungeraden Anzahl von Werten ist es der Wert in der Mitte, bei gerader Anzahl der Durchschnitt der beiden mittleren Werte.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showRange" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showRange" class="toggle-label">Spannweite anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #f5e6ff; border-radius: 8px; border-left: 4px solid #9b59b6; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #6c3483;">
+                                        <strong>Hinweis:</strong> Die Spannweite (Max - Min) zeigt, wie stark die Einschätzungen auseinandergehen. <strong>Hohe Differenz</strong> = Wahrnehmungslücke, <strong>geringe Differenz</strong> = konsistentes Bild. Besonders aufschlussreich beim Vergleich von Selbst- und Fremdbild.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1030,6 +1082,18 @@
             // Mittelwert-Toggle
             $('#showAverage').on('change', function() {
                 localStorage.setItem('eq_test_show_average', $(this).is(':checked'));
+                updateComparison();
+            });
+
+            // Median-Toggle
+            $('#showMedian').on('change', function() {
+                localStorage.setItem('eq_test_show_median', $(this).is(':checked'));
+                updateComparison();
+            });
+
+            // Spannweite-Toggle
+            $('#showRange').on('change', function() {
+                localStorage.setItem('eq_test_show_range', $(this).is(':checked'));
                 updateComparison();
             });
 
@@ -1400,21 +1464,26 @@
 
                 const bars = section.find('.comparison-bars');
                 let totalScore = 0;
+                let scores = [];
 
                 uploadedResults.forEach((result, index) => {
                     const score = result.scores[scale.id];
                     totalScore += score;
+                    scores.push(score);
                     const percentage = (score / 40) * 100;
                     const color = colors[index % colors.length];
                     const className = getClass(score);
+
+                    const barContent = score > 0 ? `
+                                <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
+                                    ${className}
+                                </div>` : '';
 
                     const row = $(`
                         <div class="comparison-bar-row">
                             <div class="comparison-bar-name">${result.name}</div>
                             <div class="comparison-bar-container">
-                                <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
-                                    ${className}
-                                </div>
+                                ${barContent}
                             </div>
                             <div class="comparison-bar-score">${score} / 40</div>
                         </div>
@@ -1430,19 +1499,88 @@
                     const avgPercentage = (avgScore / 40) * 100;
                     const avgClassName = getClass(avgScore);
 
+                    const avgBarContent = avgScore > 0 ? `
+                                <div class="comparison-bar" style="width: ${avgPercentage}%; background: #95a5a6;">
+                                    ${avgClassName}
+                                </div>` : '';
+
                     const avgRow = $(`
                         <div class="comparison-bar-row" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #bdc3c7;">
                             <div class="comparison-bar-name" style="font-weight: 700;">Mittelwert</div>
                             <div class="comparison-bar-container">
-                                <div class="comparison-bar" style="width: ${avgPercentage}%; background: #95a5a6;">
-                                    ${avgClassName}
-                                </div>
+                                ${avgBarContent}
                             </div>
                             <div class="comparison-bar-score" style="font-weight: 700;">${avgScore} / 40</div>
                         </div>
                     `);
 
                     bars.append(avgRow);
+                }
+
+                // Median berechnen und anzeigen
+                const showMedian = $('#showMedian').is(':checked');
+                if (uploadedResults.length > 1 && showMedian) {
+                    scores.sort((a, b) => a - b);
+                    let medianScore;
+                    const mid = Math.floor(scores.length / 2);
+                    if (scores.length % 2 === 0) {
+                        medianScore = Math.round((scores[mid - 1] + scores[mid]) / 2);
+                    } else {
+                        medianScore = scores[mid];
+                    }
+                    const medianPercentage = (medianScore / 40) * 100;
+                    const medianClassName = getClass(medianScore);
+
+                    // border-top nur wenn kein Mittelwert angezeigt wird
+                    const needsBorder = !showAverage;
+                    const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
+
+                    const medianBarContent = medianScore > 0 ? `
+                                <div class="comparison-bar" style="width: ${medianPercentage}%; background: #7f8c8d;">
+                                    ${medianClassName}
+                                </div>` : '';
+
+                    const medianRow = $(`
+                        <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
+                            <div class="comparison-bar-name" style="font-weight: 700;">Median</div>
+                            <div class="comparison-bar-container">
+                                ${medianBarContent}
+                            </div>
+                            <div class="comparison-bar-score" style="font-weight: 700;">${medianScore} / 40</div>
+                        </div>
+                    `);
+
+                    bars.append(medianRow);
+                }
+
+                // Spannweite berechnen und anzeigen
+                const showRange = $('#showRange').is(':checked');
+                if (uploadedResults.length > 1 && showRange) {
+                    const minScore = Math.min(...scores);
+                    const maxScore = Math.max(...scores);
+                    const rangeValue = maxScore - minScore;
+                    const rangePercentage = (rangeValue / 40) * 100;
+
+                    // border-top nur wenn weder Mittelwert noch Median angezeigt wird
+                    const needsBorder = !showAverage && !showMedian;
+                    const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
+
+                    const rangeBarContent = rangeValue > 0 ? `
+                                <div class="comparison-bar" style="width: ${rangePercentage}%; background: #9b59b6;">
+                                    Min: ${minScore} | Max: ${maxScore}
+                                </div>` : '';
+
+                    const rangeRow = $(`
+                        <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
+                            <div class="comparison-bar-name" style="font-weight: 700;">Spannweite</div>
+                            <div class="comparison-bar-container">
+                                ${rangeBarContent}
+                            </div>
+                            <div class="comparison-bar-score" style="font-weight: 700;">Δ ${rangeValue}</div>
+                        </div>
+                    `);
+
+                    bars.append(rangeRow);
                 }
 
                 content.append(section);
@@ -1460,6 +1598,18 @@
             const showAverage = localStorage.getItem('eq_test_show_average');
             if (showAverage !== null) {
                 $('#showAverage').prop('checked', showAverage === 'true');
+            }
+            
+            // Median-Toggle laden
+            const showMedian = localStorage.getItem('eq_test_show_median');
+            if (showMedian !== null) {
+                $('#showMedian').prop('checked', showMedian === 'true');
+            }
+            
+            // Spannweite-Toggle laden
+            const showRange = localStorage.getItem('eq_test_show_range');
+            if (showRange !== null) {
+                $('#showRange').prop('checked', showRange === 'true');
             }
         }
 
