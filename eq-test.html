@@ -28,15 +28,20 @@
             padding: 20px;
         }
 
+        /* Sticky Header Wrapper (Header + Action Bar gemeinsam) */
+        .sticky-header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
         /* Header / Toolbar */
         .toolbar {
             background: #2c3e50;
             color: white;
             padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .toolbar-content {
@@ -106,9 +111,6 @@
             background: #ecf0f1;
             border-bottom: 1px solid #bdc3c7;
             padding: 12px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 999;
         }
 
         .action-bar-content {
@@ -1252,29 +1254,32 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-        <div class="toolbar-content">
-            <div>
-                <h1>E-Test – Emotionale Intelligenz</h1>
-                <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
+    <!-- Sticky Header Wrapper (Header + Action Bar) -->
+    <div class="sticky-header-wrapper">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-content">
+                <div>
+                    <h1>E-Test – Emotionale Intelligenz</h1>
+                    <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Aktionsleiste -->
-    <div class="action-bar">
-        <div class="action-bar-content">
-            <div class="action-group" id="actionGroupActions">
-                <div class="action-group-label">Aktionen:</div>
-                <button class="btn-action btn-action-primary" id="btnEvaluate">✓ Auswerten</button>
-                <button class="btn-action btn-action-secondary" id="btnReset">↻ Zurücksetzen</button>
-                <button class="btn-action btn-action-info" id="btnLoadResult">📂 Auswertung laden</button>
-            </div>
-            <div class="action-group" id="actionGroupExport">
-                <div class="action-group-label">Export:</div>
-                <button class="btn-action btn-action-success" id="btnExport">💾 JSON</button>
-                <button class="btn-action btn-action-primary" id="btnExportPDF" style="display: none;">📄 PDF</button>
+        <!-- Aktionsleiste -->
+        <div class="action-bar">
+            <div class="action-bar-content">
+                <div class="action-group" id="actionGroupActions">
+                    <div class="action-group-label">Aktionen:</div>
+                    <button class="btn-action btn-action-primary" id="btnEvaluate">✓ Auswerten</button>
+                    <button class="btn-action btn-action-secondary" id="btnReset">↻ Zurücksetzen</button>
+                    <button class="btn-action btn-action-info" id="btnLoadResult">📂 Auswertung laden</button>
+                </div>
+                <div class="action-group" id="actionGroupExport">
+                    <div class="action-group-label">Export:</div>
+                    <button class="btn-action btn-action-success" id="btnExport">💾 JSON</button>
+                    <button class="btn-action btn-action-primary" id="btnExportPDF" style="display: none;">📄 PDF</button>
+                </div>
             </div>
         </div>
     </div>
