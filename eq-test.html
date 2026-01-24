@@ -514,14 +514,21 @@
         }
 
         .comparison-scale {
-            margin-bottom: 40px;
+            background: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
         }
 
         .comparison-scale-header {
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 16px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
         }
 
         .comparison-bars {
@@ -570,6 +577,70 @@
             font-weight: 600;
             color: #2c3e50;
             font-size: 14px;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #bdc3c7;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #27ae60;
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .toggle-label {
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+            user-select: none;
         }
 
         /* Footer */
@@ -716,6 +787,14 @@
             <div class="upload-section">
                 <h2>Ergebnisse hochladen</h2>
                 <p style="margin-bottom: 20px; color: #7f8c8d;">Laden Sie eine oder mehrere JSON-Dateien hoch, um die Ergebnisse zu vergleichen.</p>
+                
+                <div class="toggle-container">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showAverage" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <label for="showAverage" class="toggle-label">Mittelwert anzeigen</label>
+                </div>
                 
                 <div class="upload-area" id="uploadArea">
                     <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
@@ -936,6 +1015,12 @@
             // Name speichern
             $('#userName').on('input', function() {
                 localStorage.setItem('eq_test_name', $(this).val());
+            });
+
+            // Mittelwert-Toggle
+            $('#showAverage').on('change', function() {
+                localStorage.setItem('eq_test_show_average', $(this).is(':checked'));
+                updateComparison();
             });
 
             // Section collapse/expand
@@ -1304,9 +1389,11 @@
                 `);
 
                 const bars = section.find('.comparison-bars');
+                let totalScore = 0;
 
                 uploadedResults.forEach((result, index) => {
                     const score = result.scores[scale.id];
+                    totalScore += score;
                     const percentage = (score / 40) * 100;
                     const color = colors[index % colors.length];
                     const className = getClass(score);
@@ -1326,6 +1413,28 @@
                     bars.append(row);
                 });
 
+                // Mittelwert berechnen und anzeigen
+                const showAverage = $('#showAverage').is(':checked');
+                if (uploadedResults.length > 1 && showAverage) {
+                    const avgScore = Math.round(totalScore / uploadedResults.length);
+                    const avgPercentage = (avgScore / 40) * 100;
+                    const avgClassName = getClass(avgScore);
+
+                    const avgRow = $(`
+                        <div class="comparison-bar-row" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #bdc3c7;">
+                            <div class="comparison-bar-name" style="font-weight: 700;">Mittelwert</div>
+                            <div class="comparison-bar-container">
+                                <div class="comparison-bar" style="width: ${avgPercentage}%; background: #95a5a6;">
+                                    ${avgClassName}
+                                </div>
+                            </div>
+                            <div class="comparison-bar-score" style="font-weight: 700;">${avgScore} / 40</div>
+                        </div>
+                    `);
+
+                    bars.append(avgRow);
+                }
+
                 content.append(section);
             });
         }
@@ -1335,6 +1444,12 @@
             const name = localStorage.getItem('eq_test_name');
             if (name) {
                 $('#userName').val(name);
+            }
+            
+            // Mittelwert-Toggle laden
+            const showAverage = localStorage.getItem('eq_test_show_average');
+            if (showAverage !== null) {
+                $('#showAverage').prop('checked', showAverage === 'true');
             }
         }
 
