@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Test – Emotionale Intelligenz</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -734,9 +736,10 @@
                 <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
             </div>
             <div class="toolbar-buttons">
-                <button class="btn btn-primary" id="btnEvaluate">Auswerten</button>
-                <button class="btn btn-secondary" id="btnReset">Zurücksetzen</button>
-                <button class="btn btn-success" id="btnExport">Export JSON</button>
+                <button class="btn btn-primary" id="btnEvaluate">✓ Auswerten</button>
+                <button class="btn btn-secondary" id="btnReset">↻ Zurücksetzen</button>
+                <button class="btn btn-success" id="btnExport">💾 Export JSON</button>
+                <button class="btn btn-primary" id="btnExportPDF" style="display: none;">📄 Als PDF exportieren</button>
             </div>
         </div>
     </div>
@@ -862,7 +865,7 @@
                     <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
                     <p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Dateien hierher ziehen</p>
                     <p style="color: #7f8c8d; margin-bottom: 15px;">oder</p>
-                    <button class="btn btn-primary" id="btnSelectFiles">Dateien auswählen</button>
+                    <button class="btn btn-primary" id="btnSelectFiles">📁 Dateien auswählen</button>
                     <input type="file" id="fileInput" accept=".json" multiple>
                 </div>
 
@@ -879,6 +882,7 @@
     <!-- Footer -->
     <div class="footer">
         <p><strong>Hinweis:</strong> Dieser Test basiert auf Selbstauskunft und dient nur zur Orientierung. Er ist keine psychologische Diagnose.</p>
+        <p style="margin-top: 10px;">Basierend auf dem <a href="https://paukert.at/aPsycho/PSYPHI/E_Test.pdf" target="_blank" style="color: #3498db; text-decoration: none;">E-Test nach Paukert</a></p>
     </div>
 
     <!-- Export Modal -->
@@ -887,9 +891,9 @@
             <h3>Export JSON</h3>
             <textarea id="exportData" readonly></textarea>
             <div class="export-buttons">
-                <button class="btn btn-success" id="btnCopyJSON">In Zwischenablage kopieren</button>
-                <button class="btn btn-primary" id="btnDownloadJSON">Als Datei herunterladen</button>
-                <button class="btn btn-secondary" id="btnCloseModal">Schließen</button>
+                <button class="btn btn-success" id="btnCopyJSON">📋 In Zwischenablage kopieren</button>
+                <button class="btn btn-primary" id="btnDownloadJSON">⬇ Als Datei herunterladen</button>
+                <button class="btn btn-secondary" id="btnCloseModal">✕ Schließen</button>
             </div>
         </div>
     </div>
@@ -1072,6 +1076,18 @@
                 $(this).addClass('active');
                 $('.tab-content').removeClass('active');
                 $(`#${tabName}Tab`).addClass('active');
+                
+                // Buttons je nach Tab ein-/ausblenden
+                if (tabName === 'survey') {
+                    $('#btnEvaluate, #btnReset, #btnExport').show();
+                    $('#btnExportPDF').hide();
+                } else if (tabName === 'compare') {
+                    $('#btnEvaluate, #btnReset, #btnExport').hide();
+                    // PDF-Button nur zeigen wenn Vergleiche vorhanden
+                    if ($('.comparison-scale').length > 0) {
+                        $('#btnExportPDF').show();
+                    }
+                }
             });
 
             // Name speichern
@@ -1126,6 +1142,9 @@
 
             // Export
             $('#btnExport').on('click', exportJSON);
+
+            // PDF Export
+            $('#btnExportPDF').on('click', exportComparisonPDF);
 
             // Upload Area
             $('#btnSelectFiles').on('click', function(e) {
@@ -1447,10 +1466,12 @@
         function updateComparison() {
             if (uploadedResults.length === 0) {
                 $('#comparisonChart').removeClass('show');
+                $('#btnExportPDF').hide();
                 return;
             }
 
             $('#comparisonChart').addClass('show');
+            $('#btnExportPDF').show();
             const content = $('#comparisonContent');
             content.empty();
 
@@ -1585,6 +1606,161 @@
 
                 content.append(section);
             });
+        }
+
+        // PDF Export
+        async function exportComparisonPDF() {
+            const button = $('#btnExportPDF');
+            const originalText = button.text();
+            button.text('Erstelle PDF...').prop('disabled', true);
+
+            try {
+                // Bibliotheken prüfen
+                if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+                    throw new Error('jsPDF-Bibliothek nicht geladen');
+                }
+                if (typeof html2canvas === 'undefined') {
+                    throw new Error('html2canvas-Bibliothek nicht geladen');
+                }
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // A4-Maße mit Rändern
+                const pageWidth = 210;
+                const pageHeight = 297;
+                const margin = 15;
+                const contentWidth = pageWidth - (2 * margin);
+                const maxContentHeight = pageHeight - (2 * margin) - 15; // 15mm für Footer
+                
+                // Exportdatum
+                const now = new Date();
+                const exportDate = now.toLocaleDateString('de-DE', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric' 
+                }) + ' ' + now.toLocaleTimeString('de-DE', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                let pageNumber = 1;
+                let currentYPosition = margin;
+                
+                // Funktion für Footer mit URL
+                const addFooter = () => {
+                    pdf.setFontSize(9);
+                    pdf.setTextColor(128, 128, 128);
+                    pdf.text(`Seite ${pageNumber}`, pageWidth / 2, pageHeight - 8, { align: 'center' });
+                    pdf.text(`Export: ${exportDate}`, margin, pageHeight - 8);
+                    pdf.text('eq-test.m-wiesner.de', pageWidth - margin, pageHeight - 8, { align: 'right' });
+                };
+                
+                // === TITELBEREICH ===
+                // Haupttitel
+                pdf.setFontSize(18);
+                pdf.setFont(undefined, 'bold');
+                pdf.setTextColor(44, 62, 80);
+                pdf.text('E-Test – Emotionale Intelligenz', margin, currentYPosition);
+                currentYPosition += 10;
+                
+                // Untertitel
+                pdf.setFontSize(12);
+                pdf.setFont(undefined, 'normal');
+                pdf.setTextColor(127, 140, 141);
+                pdf.text('Vergleichsanalyse der Ergebnisse', margin, currentYPosition);
+                currentYPosition += 15;
+                
+                // Einleitungstext
+                pdf.setFontSize(10);
+                pdf.setTextColor(52, 73, 94);
+                const introText = [
+                    'Dieser Report zeigt den Vergleich mehrerer Selbsteinschätzungen zur emotionalen',
+                    'Intelligenz. Das E-Test-Instrument bewertet acht Kompetenzbereiche auf einer Skala',
+                    'von 0 bis 40 Punkten:',
+                    '',
+                    '  • E1: Selbsteinsicht und Selbstkontrolle',
+                    '  • E2: Selbstsicherheit und Selbstvertrauen',
+                    '  • E3: Offenheit und Anpassungsfähigkeit',
+                    '  • E4: Ausgeglichenheit und Optimismus',
+                    '  • E5: Leistungsorientierung',
+                    '  • E6: Vertrauen in die Mitmenschen',
+                    '  • E7: Einfühlungsvermögen und Mitgefühl',
+                    '  • E8: Verantwortungsbewusstsein',
+                    '',
+                    'Die farbcodierten Balken ermöglichen einen direkten visuellen Vergleich der Ergebnisse.',
+                    'Statistische Kennwerte (Mittelwert, Median, Spannweite) unterstützen die Interpretation.',
+                    '',
+                    '',
+                    'Quelle:',
+                    'Dieser Test basiert auf dem E-Test nach Paukert.',
+                    'Details unter: https://paukert.at/aPsycho/PSYPHI/E_Test.pdf'
+                ];
+                
+                introText.forEach(line => {
+                    pdf.text(line, margin, currentYPosition);
+                    currentYPosition += 5;
+                });
+                
+                // Neue Seite für die Ergebnisse
+                addFooter();
+                pdf.addPage();
+                pageNumber++;
+                currentYPosition = margin;
+                
+                // === ERGEBNISSE ===
+                // Überschrift für Ergebnisse
+                pdf.setFontSize(14);
+                pdf.setFont(undefined, 'bold');
+                pdf.setTextColor(44, 62, 80);
+                pdf.text('Detaillierte Ergebnisse', margin, currentYPosition);
+                currentYPosition += 10;
+                pdf.setFont(undefined, 'normal');
+                
+                // Alle E-Sektionen einzeln verarbeiten
+                const sections = document.querySelectorAll('.comparison-scale');
+                
+                for (let i = 0; i < sections.length; i++) {
+                    const section = sections[i];
+                    
+                    // Canvas für diese Sektion erstellen
+                    const canvas = await html2canvas(section, {
+                        scale: 2,
+                        logging: false,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = contentWidth;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Prüfen ob Sektion auf aktuelle Seite passt
+                    if (currentYPosition + imgHeight > maxContentHeight + margin) {
+                        // Neue Seite beginnen
+                        addFooter();
+                        pdf.addPage();
+                        pageNumber++;
+                        currentYPosition = margin;
+                    }
+                    
+                    // Bild einfügen
+                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, imgWidth, imgHeight);
+                    currentYPosition += imgHeight + 5; // 5mm Abstand zur nächsten Sektion
+                }
+                
+                // Footer für letzte Seite
+                addFooter();
+                
+                // Dateiname mit Timestamp
+                const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
+                pdf.save(`eq-test-vergleich-${timestamp}.pdf`);
+                
+            } catch (error) {
+                console.error('PDF Export Fehler:', error);
+                alert('Fehler beim Erstellen des PDFs: ' + error.message);
+            } finally {
+                button.text(originalText).prop('disabled', false);
+            }
         }
 
         // Name aus Storage laden

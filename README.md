@@ -1,10 +1,10 @@
 # E-Test – Emotionale Intelligenz
 
-Ein webbasiertes Selbsteinschätzungsinstrument zur Messung emotionaler Intelligenz in acht Dimensionen.
+Ein webbasiertes Selbsteinschätzungsinstrument zur Messung emotionaler Intelligenz in acht Dimensionen mit erweiterten Vergleichs- und Export-Funktionen.
 
 ## 📋 Übersicht
 
-Dieses Tool ermöglicht es Benutzern, ihre emotionale Intelligenz anhand von 80 Fragen selbst einzuschätzen. Die Auswertung erfolgt automatisch und liefert detaillierte Ergebnisse in acht verschiedenen Kompetenzbereichen.
+Dieses Tool ermöglicht es Benutzern, ihre emotionale Intelligenz anhand von 80 Fragen selbst einzuschätzen. Die Auswertung erfolgt automatisch und liefert detaillierte Ergebnisse in acht verschiedenen Kompetenzbereichen. Besonders hervorzuheben ist die umfangreiche Vergleichsfunktion mit statistischen Kennwerten und professionellem PDF-Export.
 
 ## ✨ Features
 
@@ -22,10 +22,20 @@ Dieses Tool ermöglicht es Benutzern, ihre emotionale Intelligenz anhand von 80 
 - **Bewertungsskala**: Von "schwach ausgeprägt" bis "stark ausgeprägt"
 
 ### Export & Vergleich
-- **JSON-Export**: Speicherung der Ergebnisse mit Zeitstempel
-- **Dateidownload**: Automatischer Download mit Datum und Uhrzeit
+- **JSON-Export**: Speicherung der Ergebnisse mit Zeitstempel (bis auf Sekunden genau)
+- **PDF-Export**: Professioneller Export der Vergleichsansicht als DIN A4 PDF
+  - Optimierte Formatierung mit 15mm Rändern
+  - Automatische Seitenzahlen
+  - Exportdatum und -zeit im Footer
+  - Mehrseitiges Layout bei vielen Daten
 - **Drag & Drop**: Einfaches Hochladen mehrerer Ergebnisse
 - **Vergleichsansicht**: Farbcodierte Balkendiagramme zum Vergleich mehrerer Personen
+- **Statistische Kennwerte** (optional aktivierbar):
+  - **Mittelwert**: Durchschnitt aller hochgeladenen Ergebnisse
+  - **Median**: Robuster mittlerer Wert, unempfindlich gegen Ausreißer
+  - **Spannweite**: Min/Max-Differenz zur Erkennung von Wahrnehmungslücken
+- **Konfigurierbare Anzeige**: Toggle-Switches für alle statistischen Kennwerte
+- **Visuelle Trennung**: Klare Abgrenzung zwischen Einzelergebnissen und berechneten Werten
 
 ## 🎯 Dimensionen
 
@@ -45,11 +55,12 @@ Das Tool bewertet folgende acht Bereiche emotionaler Intelligenz:
 ### Voraussetzungen
 - Moderner Webbrowser (Chrome, Firefox, Safari, Edge)
 - Keine zusätzliche Software erforderlich
+- Internetverbindung für PDF-Export (CDN-Bibliotheken: jsPDF, html2canvas)
 
 ### Setup
 1. Repository klonen oder Datei herunterladen
 2. `eq-test.html` im Browser öffnen
-3. Fertig! Das Tool funktioniert vollständig offline
+3. Fertig! Das Tool funktioniert vollständig offline (außer PDF-Export)
 
 ```bash
 git clone <repository-url>
@@ -72,12 +83,22 @@ cd eq-test
 ### 3. Ergebnisse exportieren
 1. Auf "Export JSON" klicken
 2. JSON-Daten in Zwischenablage kopieren oder als Datei speichern
-3. Dateiname enthält automatisch Datum und Uhrzeit
+3. Dateiname enthält automatisch Datum und Uhrzeit (inkl. Sekunden)
 
 ### 4. Ergebnisse vergleichen
 1. Zum Tab "Vergleichen" wechseln
-2. Mehrere JSON-Dateien hochladen (Drag & Drop oder Dateiauswahl)
-3. Vergleich aller Ergebnisse in farbcodierten Balkendiagrammen
+2. Anzeigeeinstellungen konfigurieren (optional):
+   - Mittelwert anzeigen (empfindlich gegen Ausreißer)
+   - Median anzeigen (robust gegen Ausreißer)
+   - Spannweite anzeigen (Differenzanalyse)
+3. Mehrere JSON-Dateien hochladen (Drag & Drop oder Dateiauswahl)
+4. Vergleich in farbcodierten Balkendiagrammen betrachten
+5. Optional: Als PDF exportieren für Dokumentation
+
+### 5. PDF exportieren
+1. Im Vergleichs-Tab JSON-Dateien hochladen
+2. Button "📄 Als PDF exportieren" erscheint automatisch
+3. PDF wird mit professioneller Formatierung heruntergeladen
 
 ## 📊 Bewertungssystem
 
@@ -89,11 +110,32 @@ Jede Dimension wird auf einer Skala von 0-40 Punkten bewertet:
 - **25-32 Punkte**: Überdurchschnittlich
 - **33-40 Punkte**: Stark ausgeprägt
 
+## 📈 Statistische Kennwerte
+
+### Mittelwert
+- Durchschnitt aller hochgeladenen Werte
+- Empfindlich gegenüber Ausreißern
+- Nur innerhalb gleicher Perspektiven sinnvoll (z.B. nur Selbsteinschätzungen)
+
+### Median
+- Mittlerer Wert der sortierten Daten
+- Robust gegenüber Ausreißern
+- Bei ungerader Anzahl: mittlerer Wert
+- Bei gerader Anzahl: Durchschnitt der beiden mittleren Werte
+
+### Spannweite
+- Differenz zwischen Maximum und Minimum
+- Zeigt Konsistenz oder Wahrnehmungslücken
+- **Hohe Spannweite** = Große Unterschiede in der Wahrnehmung
+- **Niedrige Spannweite** = Konsistentes Bild
+- Besonders aufschlussreich beim Vergleich Selbst-/Fremdbild
+
 ## 💾 Datenspeicherung
 
-- **localStorage**: Antworten werden lokal im Browser gespeichert
+- **localStorage**: Antworten und Einstellungen werden lokal im Browser gespeichert
 - **Keine Server**: Alle Daten bleiben auf dem Gerät des Benutzers
 - **Privatsphäre**: Keine Datenübertragung an externe Server
+- **Persistenz**: Einstellungen (Toggle-Status) bleiben nach Neuladen erhalten
 
 ## 🔧 Technische Details
 
@@ -102,6 +144,8 @@ Jede Dimension wird auf einer Skala von 0-40 Punkten bewertet:
 - **CSS3**: Responsive Design und Animationen
 - **JavaScript (ES6+)**: Logik und Interaktivität
 - **jQuery 3.7.1**: DOM-Manipulation und Event-Handling
+- **jsPDF 2.5.1**: PDF-Generierung (via CDN)
+- **html2canvas 1.4.1**: HTML-zu-Canvas-Konvertierung (via CDN)
 
 ### Browser-Kompatibilität
 - Chrome/Edge ≥ 90
@@ -115,6 +159,8 @@ Jede Dimension wird auf einer Skala von 0-40 Punkten bewertet:
 - Smooth Scrolling zu relevanten Bereichen
 - Animierte Fortschrittsbalken
 - Drag & Drop für Datei-Upload
+- Toggle-Switches für statistische Kennwerte
+- Card-Design für visuelle Gruppierung der Dimensionen
 
 ## 📄 JSON-Format
 
@@ -148,6 +194,7 @@ Exportierte Dateien enthalten folgende Struktur:
 - Es ersetzt **keine psychologische Diagnose** oder Beratung
 - Die Ergebnisse basieren auf **Selbstauskunft** und sind subjektiv
 - Für professionelle Einschätzungen konsultieren Sie bitte Fachpersonal
+- **Wichtig**: Mittelwertbildung ist nur innerhalb derselben Perspektive sinnvoll (z.B. nur Selbsteinschätzungen oder nur Fremdeinschätzungen)
 
 ## 🤝 Verwendung mit ChatGPT
 
@@ -163,4 +210,19 @@ Martin Wiesner
 
 ## 🔄 Version
 
-1.0.0 - Januar 2026
+2.0.0 - Januar 2026
+
+### Changelog
+**v2.0.0**
+- ✨ PDF-Export mit professioneller DIN A4-Formatierung
+- ✨ Statistische Kennwerte: Mittelwert, Median, Spannweite
+- ✨ Toggle-Switches zur Konfiguration der Anzeige
+- ✨ Verbesserte Vergleichsansicht mit Card-Design
+- ✨ Seitenzahlen und Exportdatum im PDF
+- ✨ Hinweistexte zu allen statistischen Kennwerten
+- 🎨 Optimierte Balkenbreiten durch feste Namens-Spalte
+- 🐛 Leere Balken bei Wert 0
+- 📝 Timestamp mit Sekunden im Dateinamen
+
+**v1.0.0**
+- 🎉 Initiale Version mit Grundfunktionen
