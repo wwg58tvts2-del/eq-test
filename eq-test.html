@@ -860,6 +860,15 @@
             '#9b59b6', '#1abc9c', '#e67e22', '#34495e'
         ];
 
+        // Labels für die Skala
+        const scaleLabels = {
+            0: 'nicht zutreffend',
+            1: 'wenig zutreffend',
+            2: 'teilweise zutreffend',
+            3: 'viel zutreffend',
+            4: 'ganz zutreffend'
+        };
+
         // Init
         $(document).ready(function() {
             renderQuestions();
@@ -898,7 +907,7 @@
                                     ${[0, 1, 2, 3, 4].map(val => `
                                         <div class="scale-option">
                                             <input type="radio" name="${q.id}" value="${val}" id="${q.id}_${val}">
-                                            <label for="${q.id}_${val}">${val}</label>
+                                            <label for="${q.id}_${val}">(${val}) ${scaleLabels[val]}</label>
                                         </div>
                                     `).join('')}
                                 </div>
