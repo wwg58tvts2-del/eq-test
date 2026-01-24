@@ -35,7 +35,7 @@
             padding: 20px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
@@ -43,9 +43,8 @@
             max-width: 1100px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 15px;
         }
 
@@ -100,6 +99,225 @@
 
         .btn-success:hover {
             background: #229954;
+        }
+
+        /* Action Bar (sekundäre Aktionen) */
+        .action-bar {
+            background: #ecf0f1;
+            border-bottom: 1px solid #bdc3c7;
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .action-bar-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .action-group-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-action {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            background: #ffffff;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+        }
+
+        .btn-action:hover {
+            background: #ffffff;
+            border-color: #95a5a6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-action-primary {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .btn-action-primary:hover {
+            background: #2980b9;
+            border-color: #2980b9;
+        }
+
+        .btn-action-secondary {
+            background: #95a5a6;
+            color: white;
+            border-color: #95a5a6;
+        }
+
+        .btn-action-secondary:hover {
+            background: #7f8c8d;
+            border-color: #7f8c8d;
+        }
+
+        .btn-action-success {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .btn-action-success:hover {
+            background: #229954;
+            border-color: #229954;
+        }
+
+        .btn-action-info {
+            background: #16a085;
+            color: white;
+            border-color: #16a085;
+        }
+
+        .btn-action-info:hover {
+            background: #138d75;
+            border-color: #138d75;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+            border-left: 4px solid #3498db;
+            min-width: 300px;
+        }
+
+        .toast.success {
+            border-left-color: #27ae60;
+        }
+
+        .toast.error {
+            border-left-color: #e74c3c;
+        }
+
+        .toast.warning {
+            border-left-color: #f39c12;
+        }
+
+        .toast.info {
+            border-left-color: #3498db;
+        }
+
+        .toast-icon {
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon {
+            color: #27ae60;
+        }
+
+        .toast.error .toast-icon {
+            color: #e74c3c;
+        }
+
+        .toast.warning .toast-icon {
+            color: #f39c12;
+        }
+
+        .toast.info .toast-icon {
+            color: #3498db;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #95a5a6;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            color: #7f8c8d;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .toast.removing {
+            animation: slideOut 0.3s ease-in forwards;
         }
 
         /* Tabs */
@@ -652,11 +870,75 @@
         /* Footer */
         .footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 50px 20px;
             color: #7f8c8d;
             font-size: 14px;
-            border-top: 1px solid #ecf0f1;
-            margin-top: 40px;
+            border-top: 2px solid #ecf0f1;
+            margin-top: 60px;
+            background: #f8f9fa;
+            line-height: 1.8;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 35px;
+        }
+
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .footer p {
+            margin: 0 0 10px 0;
+            color: #7f8c8d;
+        }
+
+        .footer strong {
+            color: #2c3e50;
+        }
+
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-github {
+            background: #ecf0f1;
+            padding: 10px 18px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+        .footer-github:hover {
+            background: #d5dbdb;
+            text-decoration: none;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: #bdc3c7;
+            margin: 30px auto;
         }
 
         /* Export Modal */
@@ -717,11 +999,6 @@
             .question-scale {
                 width: 100%;
                 justify-content: space-around;
-            }
-
-            .toolbar-content {
-                flex-direction: column;
-                align-items: flex-start;
             }
         }
 
@@ -972,6 +1249,9 @@
 </head>
 <body>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- Toolbar -->
     <div class="toolbar">
         <div class="toolbar-content">
@@ -979,12 +1259,22 @@
                 <h1>E-Test – Emotionale Intelligenz</h1>
                 <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
             </div>
-            <div class="toolbar-buttons">
-                <button class="btn btn-primary" id="btnEvaluate">✓ Auswerten</button>
-                <button class="btn btn-secondary" id="btnReset">↻ Zurücksetzen</button>
-                <button class="btn btn-info" id="btnLoadResult">📂 Auswertung laden</button>
-                <button class="btn btn-success" id="btnExport">💾 Export JSON</button>
-                <button class="btn btn-primary" id="btnExportPDF" style="display: none;">📄 Als PDF exportieren</button>
+        </div>
+    </div>
+
+    <!-- Aktionsleiste -->
+    <div class="action-bar">
+        <div class="action-bar-content">
+            <div class="action-group" id="actionGroupActions">
+                <div class="action-group-label">Aktionen:</div>
+                <button class="btn-action btn-action-primary" id="btnEvaluate">✓ Auswerten</button>
+                <button class="btn-action btn-action-secondary" id="btnReset">↻ Zurücksetzen</button>
+                <button class="btn-action btn-action-info" id="btnLoadResult">📂 Auswertung laden</button>
+            </div>
+            <div class="action-group" id="actionGroupExport">
+                <div class="action-group-label">Export:</div>
+                <button class="btn-action btn-action-success" id="btnExport">💾 JSON</button>
+                <button class="btn-action btn-action-primary" id="btnExportPDF" style="display: none;">📄 PDF</button>
             </div>
         </div>
     </div>
@@ -1129,8 +1419,49 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p><strong>Hinweis:</strong> Dieser Test basiert auf Selbstauskunft und dient nur zur Orientierung. Er ist keine psychologische Diagnose.</p>
-        <p style="margin-top: 10px;">Basierend auf dem <a href="https://paukert.at/aPsycho/PSYPHI/E_Test.pdf" target="_blank" style="color: #3498db; text-decoration: none;">E-Test nach Paukert</a></p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">Über diese Anwendung</div>
+                <p>
+                    Diese Webanwendung ist eine freie, nicht-kommerzielle Umsetzung des<br>
+                    <strong>„E-Tests zur emotionalen Intelligenz nach Paukert"</strong>.
+                </p>
+                <p>
+                    Sie dient der strukturierten Selbsteinschätzung sowie dem Vergleich von Selbst- und Fremdeinschätzungen.
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <div class="footer-title">Transparenz & Technik</div>
+                <p>
+                    Die technische Umsetzung, die Berechnungslogik der Skalen sowie das Datenformat<br>
+                    (JSON / PDF-Export) sind offen dokumentiert.
+                </p>
+                <p>
+                    👉 Quellcode auf GitHub:
+                </p>
+                <a href="https://github.com/wwg58tvts2-del/eq-test" target="_blank" class="footer-github">
+                    https://github.com/wwg58tvts2-del/eq-test
+                </a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <div class="footer-title">Hinweis zur Einordnung</div>
+                <p>
+                    Der Test basiert auf Selbstauskünften und stellt kein klinisch validiertes Diagnoseinstrument dar.
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <p style="font-size: 13px; color: #95a5a6;">
+                Basierend auf: <a href="https://paukert.at/aPsycho/PSYPHI/E_Test.pdf" target="_blank">E-Test nach Paukert (PDF)</a>
+            </p>
+        </div>
     </div>
 
     <!-- Export Modal -->
@@ -1270,6 +1601,71 @@
             setupEventListeners();
         });
 
+        // Funktion zum Aktualisieren der Action-Group-Labels
+        function updateActionGroupLabels() {
+            $('.action-group').each(function() {
+                const $group = $(this);
+                const $label = $group.find('.action-group-label');
+                const $buttons = $group.find('.btn-action');
+                const hasVisibleButtons = $buttons.filter(':visible').length > 0;
+                
+                if (hasVisibleButtons) {
+                    $label.show();
+                } else {
+                    $label.hide();
+                }
+            });
+        }
+
+        // Toast-Notification-System
+        function showToast(message, type = 'info', duration = 4000) {
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+
+            const titles = {
+                success: 'Erfolg',
+                error: 'Fehler',
+                warning: 'Warnung',
+                info: 'Information'
+            };
+
+            const toast = $(`
+                <div class="toast ${type}">
+                    <div class="toast-icon">${icons[type] || icons.info}</div>
+                    <div class="toast-content">
+                        <div class="toast-title">${titles[type] || titles.info}</div>
+                        <div class="toast-message">${message}</div>
+                    </div>
+                    <button class="toast-close">×</button>
+                </div>
+            `);
+
+            $('#toastContainer').append(toast);
+
+            // Close button
+            toast.find('.toast-close').on('click', function() {
+                removeToast(toast);
+            });
+
+            // Auto-remove
+            if (duration > 0) {
+                setTimeout(() => {
+                    removeToast(toast);
+                }, duration);
+            }
+        }
+
+        function removeToast(toast) {
+            toast.addClass('removing');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
+
         // Fragen rendern
         function renderQuestions() {
             const container = $('#questionsContainer');
@@ -1343,8 +1739,11 @@
                         $('#btnExportPDF').hide();
                     }
                 }
+                
+                // Action-Group-Labels ausblenden wenn keine Buttons sichtbar
+                updateActionGroupLabels();
             });
-
+            
             // Name speichern
             $('#userName').on('input', function() {
                 localStorage.setItem('eq_test_name', $(this).val());
@@ -1463,7 +1862,7 @@
             $('#btnCopyJSON').on('click', function() {
                 const text = $('#exportData').val();
                 navigator.clipboard.writeText(text).then(() => {
-                    alert('JSON wurde in die Zwischenablage kopiert!');
+                    showToast('JSON wurde in die Zwischenablage kopiert!', 'success');
                 });
             });
 
@@ -1618,6 +2017,7 @@
             // Scrollen zu Ergebnissen
             $('#results').show();
             $('#btnExportPDF').show();
+            updateActionGroupLabels();
             $('html, body').animate({
                 scrollTop: $('#results').offset().top - 80
             }, 800);
@@ -1630,11 +2030,13 @@
             }
 
             answers = {};
-            $('input[type="radio"]').prop('checked', false);
+            $('input[type="radio"]').prop('checked', false).prop('disabled', false);
+            $('#userName').prop('disabled', false);
             $('.question-card').removeClass('unanswered');
             $('#errorMessage').removeClass('show');
             $('#results').hide();
             $('#btnExportPDF').hide();
+            updateActionGroupLabels();
             localStorage.removeItem('eq_test_answers');
             
             // Fragen wieder anzeigen
@@ -1654,7 +2056,7 @@
                     
                     // Validierung
                     if (!data.answers || !data.name) {
-                        alert('Ungültige Datei: Die Datei enthält keine gültige Auswertung.');
+                        showToast('Die Datei enthält keine gültige Auswertung.', 'error');
                         return;
                     }
                     
@@ -1676,20 +2078,25 @@
                     // Markierungen entfernen
                     $('.question-card').removeClass('unanswered');
                     
+                    // Namensfeld und Fragen deaktivieren (geladenes Testergebnis)
+                    $('#userName').prop('disabled', true);
+                    $('input[type="radio"]').prop('disabled', true);
+                    
                     // Erfolgsmeldung
-                    alert(`Auswertung von "${data.name}" wurde geladen.\nDatum: ${new Date(data.timestamp).toLocaleString('de-DE')}\n\nKlicken Sie auf "Auswerten" um die Ergebnisse anzuzeigen.`);
+                    const dateStr = new Date(data.timestamp).toLocaleString('de-DE');
+                    showToast(`Auswertung von "${data.name}" wurde geladen (${dateStr}).<br>Klicken Sie auf "Auswerten" um die Ergebnisse anzuzeigen.`, 'success', 6000);
                     
                     // Nach oben scrollen
                     $('html, body').animate({ scrollTop: 0 }, 500);
                     
                 } catch (error) {
                     console.error('Fehler beim Laden der Auswertung:', error);
-                    alert('Fehler beim Laden der Datei: Die Datei konnte nicht gelesen werden.');
+                    showToast('Die Datei konnte nicht gelesen werden.', 'error');
                 }
             };
             
             reader.onerror = function() {
-                alert('Fehler beim Lesen der Datei.');
+                showToast('Fehler beim Lesen der Datei.', 'error');
             };
             
             reader.readAsText(file);
@@ -1698,7 +2105,7 @@
         // Export JSON
         function exportJSON() {
             if (!validate()) {
-                alert('Bitte beantworten Sie zuerst alle Fragen.');
+                showToast('Bitte beantworten Sie zuerst alle Fragen.', 'warning');
                 return;
             }
 
@@ -1742,7 +2149,7 @@
         // Handle File Upload
         function handleFiles(files) {
             Array.from(files).forEach(file => {
-                if (file.type === 'application/json') {
+                if (file.type === 'application/json' || file.name.endsWith('.json')) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         try {
@@ -1752,11 +2159,17 @@
                                 updateFileList();
                                 updateComparison();
                             } else {
-                                alert(`Ungültige Datei: ${file.name}`);
+                                console.error('Ungültige Datenstruktur:', data);
+                                showToast(`Ungültige Datei: ${file.name}<br>Erwartet: JSON mit "scores" und "name" Feldern`, 'error');
                             }
                         } catch (err) {
-                            alert(`Fehler beim Lesen der Datei: ${file.name}`);
+                            console.error('JSON Parse Fehler:', err, 'Inhalt:', e.target.result);
+                            showToast(`Fehler beim Lesen der Datei: ${file.name}<br>${err.message}`, 'error');
                         }
+                    };
+                    reader.onerror = function(err) {
+                        console.error('FileReader Fehler:', err);
+                        showToast(`Fehler beim Laden der Datei: ${file.name}`, 'error');
                     };
                     reader.readAsText(file);
                 }
@@ -1796,11 +2209,13 @@
             if (uploadedResults.length === 0) {
                 $('#comparisonChart').removeClass('show');
                 $('#btnExportPDF').hide();
+                updateActionGroupLabels();
                 return;
             }
 
             $('#comparisonChart').addClass('show');
             $('#btnExportPDF').show();
+            updateActionGroupLabels();
             const content = $('#comparisonContent');
             content.empty();
 
@@ -2442,10 +2857,11 @@
                 
                 const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
                 pdf.save(`eq-test-${userName}-${timestamp}.pdf`);
+                showToast('PDF wurde erfolgreich erstellt und heruntergeladen!', 'success');
                 
             } catch (error) {
                 console.error('PDF Export Fehler:', error);
-                alert('Fehler beim Erstellen des PDFs: ' + error.message);
+                showToast('Fehler beim Erstellen des PDFs: ' + error.message, 'error');
             } finally {
                 button.text(originalText).prop('disabled', false);
             }
@@ -2597,10 +3013,11 @@
                 // Dateiname mit Timestamp
                 const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
                 pdf.save(`eq-test-vergleich-${timestamp}.pdf`);
+                showToast('Vergleichs-PDF wurde erfolgreich erstellt und heruntergeladen!', 'success');
                 
             } catch (error) {
                 console.error('PDF Export Fehler:', error);
-                alert('Fehler beim Erstellen des PDFs: ' + error.message);
+                showToast('Fehler beim Erstellen des PDFs: ' + error.message, 'error');
             } finally {
                 button.text(originalText).prop('disabled', false);
             }
