@@ -815,6 +815,26 @@
             border-left: 4px solid #3498db;
         }
 
+        /* Comparison Notice */
+        .comparison-notice {
+            background: #f8f9fa;
+            border: 1px solid #d5dbdb;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .comparison-notice-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
         .toggle-switch {
             position: relative;
             display: inline-block;
@@ -1415,6 +1435,12 @@
 
             <div class="comparison-chart" id="comparisonChart">
                 <h2>Vergleich der Ergebnisse</h2>
+                
+                <div class="comparison-notice">
+                    <div class="comparison-notice-title">Hinweis:</div>
+                    <div>Die Auswertung basiert ausschließlich auf den hochgeladenen Ergebnissen. Das System unterscheidet nicht zwischen Selbst- und Fremdeinschätzungen. Bitte achte selbst darauf, nur sinnvoll zusammengehörige Ergebnisse zu kombinieren.</div>
+                </div>
+                
                 <div id="comparisonContent"></div>
             </div>
         </div>
