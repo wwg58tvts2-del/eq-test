@@ -701,9 +701,20 @@
             margin-bottom: 10px;
         }
 
+        .file-item-info {
+            flex: 1;
+        }
+
         .file-item-name {
             font-weight: 600;
             color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .file-item-timestamp {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-family: 'Courier New', monospace;
         }
 
         .file-item-btn {
@@ -1369,6 +1380,24 @@
                         <div style="margin-bottom: 20px;">
                             <div class="toggle-container" style="margin-bottom: 10px;">
                                 <label class="toggle-switch">
+                                    <input type="checkbox" id="showTimestamp">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showTimestamp" class="toggle-label">Timestamp statt Namen anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #3498db; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #2c5f7f;">
+                                        <strong>Hinweis:</strong> Standardmäßig wird der Name angezeigt. Mit dieser Option können Sie stattdessen den Erstellungszeitpunkt in den Vergleichsbalken sehen.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
                                     <input type="checkbox" id="showAverage" checked>
                                     <span class="toggle-slider"></span>
                                 </label>
@@ -1776,6 +1805,12 @@
             // Name speichern
             $('#userName').on('input', function() {
                 localStorage.setItem('eq_test_name', $(this).val());
+            });
+
+            // Timestamp-Toggle
+            $('#showTimestamp').on('change', function() {
+                localStorage.setItem('eq_test_show_timestamp', $(this).is(':checked'));
+                updateComparison();
             });
 
             // Mittelwert-Toggle
@@ -2215,9 +2250,25 @@
             }
 
             uploadedResults.forEach((result, index) => {
+                // Timestamp formatieren
+                let timestampText = '';
+                if (result.timestamp) {
+                    const date = new Date(result.timestamp);
+                    timestampText = date.toLocaleString('de-DE', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+
                 const item = $(`
                     <div class="file-item">
-                        <div class="file-item-name">${result.name}</div>
+                        <div class="file-item-info">
+                            <div class="file-item-name">${result.name}</div>
+                            ${timestampText ? `<div class="file-item-timestamp">📅 ${timestampText}</div>` : ''}
+                        </div>
                         <button class="file-item-btn" data-index="${index}">Entfernen</button>
                     </div>
                 `);
@@ -2259,6 +2310,7 @@
                 const bars = section.find('.comparison-bars');
                 let totalScore = 0;
                 let scores = [];
+                const showTimestamp = $('#showTimestamp').is(':checked');
 
                 uploadedResults.forEach((result, index) => {
                     const score = result.scores[scale.id];
@@ -2268,6 +2320,19 @@
                     const color = colors[index % colors.length];
                     const className = getClass(score);
 
+                    // Label: entweder Timestamp oder Name
+                    let displayLabel = result.name;
+                    if (showTimestamp && result.timestamp) {
+                        const date = new Date(result.timestamp);
+                        displayLabel = date.toLocaleString('de-DE', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+
                     const barContent = score > 0 ? `
                                 <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
                                     ${className}
@@ -2275,7 +2340,7 @@
 
                     const row = $(`
                         <div class="comparison-bar-row">
-                            <div class="comparison-bar-name">${result.name}</div>
+                            <div class="comparison-bar-name">${displayLabel}</div>
                             <div class="comparison-bar-container">
                                 ${barContent}
                             </div>
@@ -2997,6 +3062,48 @@
                 pdf.addPage();
                 pageNumber++;
                 currentYPosition = margin;
+                
+                // === ÜBERSICHT DER HOCHGELADENEN DATEN ===
+                pdf.setFontSize(14);
+                pdf.setFont(undefined, 'bold');
+                pdf.setTextColor(44, 62, 80);
+                pdf.text('Hochgeladene Auswertungen', margin, currentYPosition);
+                currentYPosition += 8;
+                
+                pdf.setFontSize(10);
+                pdf.setFont(undefined, 'normal');
+                pdf.setTextColor(60, 60, 60);
+                pdf.text(`Anzahl der verglichenen Datensätze: ${uploadedResults.length}`, margin, currentYPosition);
+                currentYPosition += 10;
+                
+                // Liste der hochgeladenen Daten mit Timestamps
+                uploadedResults.forEach((result, index) => {
+                    // Name
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setTextColor(41, 128, 185);
+                    pdf.text(`${index + 1}. ${result.name}`, margin + 3, currentYPosition);
+                    currentYPosition += 5;
+                    
+                    // Timestamp (falls vorhanden)
+                    if (result.timestamp) {
+                        const date = new Date(result.timestamp);
+                        const timestampText = date.toLocaleString('de-DE', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        pdf.setFont(undefined, 'normal');
+                        pdf.setTextColor(127, 140, 141);
+                        pdf.text(`   Erstellt am: ${timestampText}`, margin + 3, currentYPosition);
+                        currentYPosition += 6;
+                    } else {
+                        currentYPosition += 2;
+                    }
+                });
+                
+                currentYPosition += 10;
                 
                 // === ERGEBNISSE ===
                 // Überschrift für Ergebnisse
