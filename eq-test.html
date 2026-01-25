@@ -2312,7 +2312,17 @@
                 let scores = [];
                 const showTimestamp = $('#showTimestamp').is(':checked');
 
-                uploadedResults.forEach((result, index) => {
+                // Ergebnisse sortieren wenn Timestamp angezeigt wird
+                let resultsToDisplay = [...uploadedResults];
+                if (showTimestamp) {
+                    resultsToDisplay.sort((a, b) => {
+                        const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+                        const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+                        return dateA - dateB; // Von alt nach neu (klein nach groß)
+                    });
+                }
+
+                resultsToDisplay.forEach((result, index) => {
                     const score = result.scores[scale.id];
                     totalScore += score;
                     scores.push(score);
