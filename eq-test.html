@@ -2333,12 +2333,12 @@
                     const needsBorder = !showAverage && !showMedian;
                     const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
 
-                    // Spannweiten-Balken: Immer volle Breite (100%)
-                    // Min/Max-Information im Balken, Delta rechts daneben
-                    const rangeBarContent = `
-                                <div class="comparison-bar" style="width: 100%; background: #9b59b6;">
+                    // Spannweiten-Balken: Breite proportional zum Delta-Wert (Streuung)
+                    // Die Balkenlänge repräsentiert ausschließlich die Differenz (Max - Min)
+                    const rangeBarContent = rangeValue > 0 ? `
+                                <div class="comparison-bar" style="width: ${rangePercentage}%; background: #9b59b6;">
                                     Min: ${minScore} | Max: ${maxScore}
-                                </div>`;
+                                </div>` : '';
 
                     const rangeRow = $(`
                         <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
