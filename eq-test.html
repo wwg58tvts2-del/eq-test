@@ -2211,6 +2211,15 @@
         }
 
         // Handle File Upload
+        // Sortiert uploadedResults nach Timestamp (älteste zuerst)
+        function sortResultsByTimestamp() {
+            uploadedResults.sort((a, b) => {
+                const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+                const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+                return dateA - dateB;
+            });
+        }
+
         function handleFiles(files) {
             Array.from(files).forEach(file => {
                 if (file.type === 'application/json' || file.name.endsWith('.json')) {
@@ -2220,6 +2229,7 @@
                             const data = JSON.parse(e.target.result);
                             if (data.scores && data.name) {
                                 uploadedResults.push(data);
+                                sortResultsByTimestamp();
                                 updateFileList();
                                 updateComparison();
                             } else {
@@ -2312,17 +2322,8 @@
                 let scores = [];
                 const showTimestamp = $('#showTimestamp').is(':checked');
 
-                // Ergebnisse sortieren wenn Timestamp angezeigt wird
-                let resultsToDisplay = [...uploadedResults];
-                if (showTimestamp) {
-                    resultsToDisplay.sort((a, b) => {
-                        const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
-                        const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
-                        return dateA - dateB; // Von alt nach neu (klein nach groß)
-                    });
-                }
-
-                resultsToDisplay.forEach((result, index) => {
+                // uploadedResults ist bereits sortiert, keine separate Sortierung nötig
+                uploadedResults.forEach((result, index) => {
                     const score = result.scores[scale.id];
                     totalScore += score;
                     scores.push(score);
