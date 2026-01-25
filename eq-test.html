@@ -3202,6 +3202,31 @@
                     $(`input[name="${id}"][value="${answers[id]}"]`).prop('checked', true);
                 });
             }
+            
+            // Name laden
+            const storedName = localStorage.getItem('eq_test_name');
+            if (storedName) {
+                $('#userName').val(storedName);
+            }
+            
+            // Toggle-Einstellungen laden
+            const showTimestamp = localStorage.getItem('eq_test_show_timestamp') === 'true';
+            $('#showTimestamp').prop('checked', showTimestamp);
+            
+            const showAverage = localStorage.getItem('eq_test_show_average');
+            if (showAverage !== null) {
+                $('#showAverage').prop('checked', showAverage === 'true');
+            }
+            
+            const showMedian = localStorage.getItem('eq_test_show_median');
+            if (showMedian !== null) {
+                $('#showMedian').prop('checked', showMedian === 'true');
+            }
+            
+            const showRange = localStorage.getItem('eq_test_show_range');
+            if (showRange !== null) {
+                $('#showRange').prop('checked', showRange === 'true');
+            }
         }
     </script>
 </body>
