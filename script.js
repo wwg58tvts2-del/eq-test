@@ -1,0 +1,1703 @@
+// Fragen-Daten (80 Items)
+const questions = [
+    { id: 'x01', text: 'Ich weiß immer, welche Emotionen mich im Augenblick bewegen.' },
+    { id: 'x02', text: 'Mit leidvollen Erfahrungen und Gefühlen kann ich gut umgehen.' },
+    { id: 'x03', text: 'Meine Wertvorstellungen und Ziele leiten mich in meinem täglichen Verhalten.' },
+    { id: 'x04', text: 'In stressreichen Situationen behalte ich meinen Kopf und kann vernünftige Entscheidungen treffen.' },
+    { id: 'x05', text: 'Ich kann gut nachvollziehen, welche Gefühle mich zu bestimmten Handlungen veranlassen.' },
+    { id: 'x06', text: 'Ich neige öfter zu Stimmungsschwankungen.' },
+    { id: 'x07', text: 'Wenn ich wütend bin, schaffe ich es trotzdem, zuerst Abstand zu gewinnen und dann zu handeln.' },
+    { id: 'x08', text: 'Wenn ich mit einem Freund/einer Freundin Streit hatte, bereue ich hinterher oft, zu aggressiv geworden zu sein.' },
+    { id: 'x09', text: 'Durch meine Spontaneität habe ich des Öfteren die Folgen meines Handelns nicht bedacht.' },
+    { id: 'x10', text: 'Wenn ich gereizt bin, wirkt sich das auf meine Motivation und auch auf meine Leistung aus.' },
+    { id: 'x11', text: 'Ich bin mir bewusst, wo meine Stärken und wo meine Schwächen liegen.' },
+    { id: 'x12', text: 'Ich denke nach, bevor ich handle.' },
+    { id: 'x13', text: 'Ich bin fähig, über mich selbst zu lachen.' },
+    { id: 'x14', text: 'Ich bin selbstsicher und habe auf meine Mitmenschen eine positive Ausstrahlung.' },
+    { id: 'x15', text: 'Ich kann über mein Sexualleben offen reden.' },
+    { id: 'x16', text: 'Ich fühle mich heute im Großen und Ganzen wohler als in meiner Jugend.' },
+    { id: 'x17', text: 'Manche Menschen in meiner Umgebung haben ein völlig falsches Bild von mir.' },
+    { id: 'x18', text: 'Meine Gefühle und Emotionen behalte ich lieber für mich.' },
+    { id: 'x19', text: 'Ich fühle mich wohl, wenn ich im Mittelpunkt stehe.' },
+    { id: 'x20', text: 'Ich vertrete meine Überzeugungen, auch wenn ich damit alleine dastehe.' },
+    { id: 'x21', text: 'Ein sicherer Arbeitsplatz ist für mich wichtiger als eine kreative, aber unsichere Arbeit.' },
+    { id: 'x22', text: 'Ich mache gerne neue Erfahrungen und reise daher sehr gerne.' },
+    { id: 'x23', text: 'Ich freue mich auf die neue Umgebung, wenn ich umziehe.' },
+    { id: 'x24', text: 'Kleine Änderungen an meinem Arbeitsplatz können für mich durchaus größere Probleme bedeuten.' },
+    { id: 'x25', text: 'Der schnelle Wandel in der Gesellschaft fasziniert mich.' },
+    { id: 'x26', text: 'Ich passe mich flexibel an neue Situationen an.' },
+    { id: 'x27', text: 'Ich halte mich lieber an bewährte Konzepte, als neue Strategien zur Problemlösung zu suchen.' },
+    { id: 'x28', text: 'Ich kann es nicht ausstehen, wenn ich meine einmal gefassten Pläne ändern muss.' },
+    { id: 'x29', text: 'Ich wäre lieber in der Werbebranche als in der Versicherungsbranche tätig.' },
+    { id: 'x30', text: 'Das Sprichwort „Was der Bauer nicht kennt, das isst er nicht" trifft auch auf mich zu.' },
+    { id: 'x31', text: 'Vergangene Misserfolge bedrücken mich des Öfteren.' },
+    { id: 'x32', text: 'Mir fehlt es manchmal an Ausgeglichenheit und Ruhe.' },
+    { id: 'x33', text: 'Wenn ich Niederlagen einstecken muss, fehlt mir anschließend lange die Kraft für einen Neuanfang.' },
+    { id: 'x34', text: 'Ich lasse mich im Alltag vom Stress vereinnahmen und fühle mich dann gehetzt und getrieben.' },
+    { id: 'x35', text: 'Wenn ich ein neues Projekt in Angriff nehme, dann gehe ich davon aus, Erfolg zu haben.' },
+    { id: 'x36', text: 'Rückschläge sehe ich als Resultat von beeinflussbaren Umständen und nicht als ein persönliches Versagen.' },
+    { id: 'x37', text: 'Ich sehe mich selbst mit Humor und Distanz.' },
+    { id: 'x38', text: 'Ich bin oft schnell eifersüchtig.' },
+    { id: 'x39', text: 'Als Ausgleich zu meinem Berufsleben pflege ich ein regelmäßiges Hobby.' },
+    { id: 'x40', text: 'Meine Freunde würden mich als Optimisten bezeichnen.' },
+    { id: 'x41', text: 'Mein berufliches Ziel ist es, Karriere zu machen, und ich bin auch bereit, alles dafür zu tun.' },
+    { id: 'x42', text: 'Hindernisse und Rückschläge können mich nicht aufhalten.' },
+    { id: 'x43', text: 'Meinen Urlaub nutze ich sehr oft, um mir über meine beruflichen Ziele und Möglichkeiten Gedanken zu machen.' },
+    { id: 'x44', text: 'Zufriedenheit ist mir wichtiger als Weiterentwicklung.' },
+    { id: 'x45', text: 'Die Sonntage kann ich nicht genießen, weil danach wieder eine ganze Woche voll Arbeit vor mir liegt.' },
+    { id: 'x46', text: 'Manchmal habe ich Probleme, begonnene Projekte zielstrebig zu einem Abschluss zu bringen.' },
+    { id: 'x47', text: 'Ich bringe gerne Opfer, damit ein Ziel meiner Firma erreicht wird.' },
+    { id: 'x48', text: 'Notfalls setze ich mich über Vorschriften hinweg, wenn ich dadurch mein Ziel erreichen kann.' },
+    { id: 'x49', text: 'Mein Privatleben ist mir wichtiger als mein Berufsleben.' },
+    { id: 'x50', text: 'Um gute Ideen zu realisieren, nehme ich auch Überstunden in Kauf.' },
+    { id: 'x51', text: 'Wenn ich andere miteinander reden sehe, dann fürchte ich des Öfteren, dass sie über mich reden könnten.' },
+    { id: 'x52', text: 'Ich habe viele Feinde.' },
+    { id: 'x53', text: 'Wenn sich jemand besonders zuvorkommend verhält, überlege ich, welche Absicht dahinterstecken könnte.' },
+    { id: 'x54', text: 'Durch meine Ehrlichkeit haben meine Mitmenschen Vertrauen in mich.' },
+    { id: 'x55', text: 'Wenn jemand mein Vertrauen missbraucht hat, dann vergesse ich das sehr lange nicht.' },
+    { id: 'x56', text: 'Wenn ich anderen eine Aufgabe zuteile, dann kontrolliere ich oft, ob deren Ausführung meinen Vorstellungen entspricht.' },
+    { id: 'x57', text: 'Ich überlege oft, ob andere Leute schlecht über mich denken.' },
+    { id: 'x58', text: 'Sollte ich einmal verhindert sein, dann würde ich einen engen Freund mit gutem Gewissen mit meiner Bankkarte zum Geldabheben schicken.' },
+    { id: 'x59', text: 'Korrektes Verhalten entspringt bei den meisten Menschen nur der Angst vor Strafe.' },
+    { id: 'x60', text: 'Vertrauen ist gut, Kontrolle ist besser.' },
+    { id: 'x61', text: 'Ich bin ein guter Zuhörer.' },
+    { id: 'x62', text: 'Ich verstehe die Gefühle der Anderen und achte auf ihre Bedürfnisse.' },
+    { id: 'x63', text: 'Meine Freunde können sich darauf verlassen, dass ich ihnen bei Problemen behilflich bin.' },
+    { id: 'x64', text: 'Für meine Kollegen bin ich eine beliebte Anlaufstelle, wenn sie sich ausreden wollen.' },
+    { id: 'x65', text: 'Ich arbeite gerne mit fremden Gruppen und dadurch entstehende Konflikte machen mir nichts aus.' },
+    { id: 'x66', text: 'Es ist schwer, das Vertrauen anderer zu gewinnen.' },
+    { id: 'x67', text: 'Wenn jemand mit emotionalen Problemen meine Hilfe braucht, dann schiebe ich meine Termine gerne auf.' },
+    { id: 'x68', text: 'Ich mische mich nicht gern in anderer Leute Angelegenheiten.' },
+    { id: 'x69', text: 'Die Körpersprache der Menschen sagt oft mehr aus als ihre Worte.' },
+    { id: 'x70', text: 'Freunde zu finden ist nicht einfach.' },
+    { id: 'x71', text: 'Bei Haustieren stört mich am meisten, dass man viel Verantwortung auf sich nimmt.' },
+    { id: 'x72', text: 'Ich trete für meine Überzeugung ein und weise andere zurecht, wenn sie meiner Meinung nach eine falsche Ansicht vertreten.' },
+    { id: 'x73', text: 'Ich bin zuverlässig.' },
+    { id: 'x74', text: 'Wenn ich jemandem ein Versprechen gegeben habe, dann halte ich es in jedem Fall.' },
+    { id: 'x75', text: 'Mit dem Organisieren meiner Termine und meiner Tätigkeiten habe ich Probleme.' },
+    { id: 'x76', text: 'Wenn ich ein Ziel nicht erreiche, dann ist es meine Schuld.' },
+    { id: 'x77', text: 'Ich arbeite gewissenhaft und sorgfältig.' },
+    { id: 'x78', text: 'Wenn ich meinen Urlaub antrete, dann überlasse ich angefangene Arbeiten meinen Kollegen.' },
+    { id: 'x79', text: 'Nach Feierabend grüble ich oft weiterhin über meine berufliche Verantwortung nach.' },
+    { id: 'x80', text: 'Wenn es um eine neue Arbeitszuteilung geht, hoffe ich, dass ich nicht zu viel Verantwortung übernehmen muss.' }
+];
+
+// Skalen-Definitionen
+const scales = [
+    { id: 'E1', name: 'Selbsteinsicht und Selbstkontrolle', range: [1, 10] },
+    { id: 'E2', name: 'Selbstsicherheit und Selbstvertrauen', range: [11, 20] },
+    { id: 'E3', name: 'Offenheit und Anpassungsfähigkeit', range: [21, 30] },
+    { id: 'E4', name: 'Ausgeglichenheit und Optimismus', range: [31, 40] },
+    { id: 'E5', name: 'Leistungsorientierung', range: [41, 50] },
+    { id: 'E6', name: 'Vertrauen in die Mitmenschen', range: [51, 60] },
+    { id: 'E7', name: 'Einfühlungsvermögen und Mitgefühl', range: [61, 70] },
+    { id: 'E8', name: 'Verantwortungsbewusstsein', range: [71, 80] }
+];
+
+// Antworten speichern
+let answers = {};
+let uploadedResults = [];
+
+// Farben für Vergleich
+const colors = [
+    '#3498db', '#e74c3c', '#27ae60', '#f39c12', 
+    '#9b59b6', '#1abc9c', '#e67e22', '#34495e'
+];
+
+// Labels für die Skala
+const scaleLabels = {
+    0: 'nicht zutreffend',
+    1: 'wenig zutreffend',
+    2: 'teilweise zutreffend',
+    3: 'viel zutreffend',
+    4: 'ganz zutreffend'
+};
+
+// Init
+$(document).ready(function() {
+    renderQuestions();
+    loadFromStorage();
+    loadNameFromStorage();
+    setupEventListeners();
+});
+
+// Funktion zum Aktualisieren der Action-Group-Labels
+function updateActionGroupLabels() {
+    $('.action-group').each(function() {
+        const $group = $(this);
+        const $label = $group.find('.action-group-label');
+        const $buttons = $group.find('.btn-action');
+        const hasVisibleButtons = $buttons.filter(':visible').length > 0;
+        
+        if (hasVisibleButtons) {
+            $label.show();
+        } else {
+            $label.hide();
+        }
+    });
+}
+
+// Toast-Notification-System
+function showToast(message, type = 'info', duration = 4000) {
+    const icons = {
+        success: '✓',
+        error: '✕',
+        warning: '⚠',
+        info: 'ℹ'
+    };
+
+    const titles = {
+        success: 'Erfolg',
+        error: 'Fehler',
+        warning: 'Warnung',
+        info: 'Information'
+    };
+
+    const toast = $(`
+        <div class="toast ${type}">
+            <div class="toast-icon">${icons[type] || icons.info}</div>
+            <div class="toast-content">
+                <div class="toast-title">${titles[type] || titles.info}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="toast-close">×</button>
+        </div>
+    `);
+
+    $('#toastContainer').append(toast);
+
+    // Close button
+    toast.find('.toast-close').on('click', function() {
+        removeToast(toast);
+    });
+
+    // Auto-remove
+    if (duration > 0) {
+        setTimeout(() => {
+            removeToast(toast);
+        }, duration);
+    }
+}
+
+function removeToast(toast) {
+    toast.addClass('removing');
+    setTimeout(() => {
+        toast.remove();
+    }, 300);
+}
+
+// Fragen rendern
+function renderQuestions() {
+    const container = $('#questionsContainer');
+    
+    scales.forEach(scale => {
+        const section = $('<div class="section"></div>');
+        const header = $(`
+            <div class="section-header">
+                <div class="section-header-content">
+                    <h2>${scale.id}: ${scale.name}</h2>
+                    <div class="section-subtitle">Fragen ${scale.range[0]} bis ${scale.range[1]}</div>
+                </div>
+                <div class="section-collapse-icon">▼</div>
+            </div>
+        `);
+        section.append(header);
+        
+        const questionsContainer = $('<div class="section-questions"></div>');
+
+        for (let i = scale.range[0]; i <= scale.range[1]; i++) {
+            const q = questions[i - 1];
+            const card = $(`
+                <div class="question-card" data-question="${q.id}">
+                    <div class="question-content">
+                        <div class="question-id">${q.id}</div>
+                        <div class="question-text">${q.text}</div>
+                        <div class="question-scale">
+                            ${[0, 1, 2, 3, 4].map(val => `
+                                <div class="scale-option">
+                                    <input type="radio" name="${q.id}" value="${val}" id="${q.id}_${val}">
+                                    <label for="${q.id}_${val}">(${val}) ${scaleLabels[val]}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `);
+            questionsContainer.append(card);
+        }
+        
+        section.append(questionsContainer);
+        container.append(section);
+    });
+}
+
+// Event Listeners
+function setupEventListeners() {
+    // Tabs
+    $('.tab').on('click', function() {
+        const tabName = $(this).data('tab');
+        $('.tab').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-content').removeClass('active');
+        $(`#${tabName}Tab`).addClass('active');
+        
+        // Buttons je nach Tab ein-/ausblenden
+        if (tabName === 'survey') {
+            $('#btnEvaluate, #btnReset, #btnExport, #btnLoadResult').show();
+            // PDF-Button nur zeigen wenn Auswertung durchgeführt wurde
+            if ($('#results').is(':visible') && $('#resultsContent').children().length > 0) {
+                $('#btnExportPDF').show();
+            } else {
+                $('#btnExportPDF').hide();
+            }
+        } else if (tabName === 'compare') {
+            $('#btnEvaluate, #btnReset, #btnExport, #btnLoadResult').hide();
+            // PDF-Button nur zeigen wenn Vergleiche vorhanden
+            if ($('.comparison-scale').length > 0) {
+                $('#btnExportPDF').show();
+            } else {
+                $('#btnExportPDF').hide();
+            }
+        }
+        
+        // Action-Group-Labels ausblenden wenn keine Buttons sichtbar
+        updateActionGroupLabels();
+    });
+    
+    // Name speichern
+    $('#userName').on('input', function() {
+        localStorage.setItem('eq_test_name', $(this).val());
+    });
+
+    // Timestamp-Toggle
+    $('#showTimestamp').on('change', function() {
+        localStorage.setItem('eq_test_show_timestamp', $(this).is(':checked'));
+        updateComparison();
+    });
+
+    // Mittelwert-Toggle
+    $('#showAverage').on('change', function() {
+        localStorage.setItem('eq_test_show_average', $(this).is(':checked'));
+        updateComparison();
+    });
+
+    // Median-Toggle
+    $('#showMedian').on('change', function() {
+        localStorage.setItem('eq_test_show_median', $(this).is(':checked'));
+        updateComparison();
+    });
+
+    // Spannweite-Toggle
+    $('#showRange').on('change', function() {
+        localStorage.setItem('eq_test_show_range', $(this).is(':checked'));
+        updateComparison();
+    });
+
+    // Section collapse/expand
+    $(document).on('click', '.section-header', function() {
+        const questions = $(this).siblings('.section-questions');
+        $(this).toggleClass('collapsed');
+        questions.toggleClass('collapsed');
+    });
+
+    // 
+    // Radio-Button Änderungen
+    $('input[type="radio"]').on('change', function() {
+        const name = $(this).attr('name');
+        const value = parseInt($(this).val());
+        answers[name] = value;
+        
+        // Markierung entfernen
+        $(this).closest('.question-card').removeClass('unanswered');
+        
+        // Auto-Save
+        saveToStorage();
+    });
+
+    // Auswerten
+    $('#btnEvaluate').on('click', evaluate);
+
+    // Zurücksetzen
+    $('#btnReset').on('click', reset);
+
+    // Export
+    $('#btnExport').on('click', exportJSON);
+
+    // Auswertung laden
+    $('#btnLoadResult').on('click', function(e) {
+        e.preventDefault();
+        $('#loadResultInput').click();
+    });
+
+    $('#loadResultInput').on('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            loadResult(file);
+        }
+        // Input zurücksetzen damit dieselbe Datei erneut geladen werden kann
+        $(this).val('');
+    });
+
+    // PDF Export
+    $('#btnExportPDF').on('click', function() {
+        const activeTab = $('.tab.active').data('tab');
+        if (activeTab === 'survey') {
+            exportSurveyPDF();
+        } else if (activeTab === 'compare') {
+            exportComparisonPDF();
+        }
+    });
+
+    // Upload Area
+    $('#btnSelectFiles').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#fileInput').click();
+    });
+
+    $('#fileInput').on('change', function(e) {
+        handleFiles(e.target.files);
+    });
+
+    // Drag & Drop
+    $('#uploadArea').on('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).addClass('dragover');
+    });
+
+    $('#uploadArea').on('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('dragover');
+    });
+
+    $('#uploadArea').on('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('dragover');
+        handleFiles(e.originalEvent.dataTransfer.files);
+    });
+
+    // Modal schließen
+    $('#btnCloseModal').on('click', function() {
+        $('#exportModal').removeClass('show');
+    });
+
+    // JSON kopieren
+    $('#btnCopyJSON').on('click', function() {
+        const text = $('#exportData').val();
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('JSON wurde in die Zwischenablage kopiert!', 'success');
+        });
+    });
+
+    // JSON herunterladen
+    $('#btnDownloadJSON').on('click', function() {
+        const text = $('#exportData').val();
+        const blob = new Blob([text], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
+        a.download = `eq-test-${timestamp}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // Modal außerhalb klicken
+    $('#exportModal').on('click', function(e) {
+        if ($(e.target).is('#exportModal')) {
+            $(this).removeClass('show');
+        }
+    });
+}
+
+// Validierung
+function validate() {
+    const unanswered = [];
+    
+    for (let i = 1; i <= 80; i++) {
+        const id = 'x' + String(i).padStart(2, '0');
+        if (answers[id] === undefined) {
+            unanswered.push(id);
+        }
+    }
+
+    if (unanswered.length > 0) {
+        // Fehlermeldung
+        const msg = `⚠️ Bitte beantworten Sie noch ${unanswered.length} Frage(n), bevor Sie auswerten können.`;
+        $('#errorMessage').text(msg).addClass('show');
+
+        // Erste unbeantwortete Frage markieren und scrollen
+        const firstUnanswered = unanswered[0];
+        const card = $(`.question-card[data-question="${firstUnanswered}"]`);
+        
+        // Alle Markierungen entfernen
+        $('.question-card').removeClass('unanswered');
+        
+        // Unbeantwortete markieren
+        unanswered.forEach(id => {
+            $(`.question-card[data-question="${id}"]`).addClass('unanswered');
+        });
+
+        // Zur ersten scrollen
+        $('html, body').animate({
+            scrollTop: card.offset().top - 100
+        }, 500);
+
+        return false;
+    }
+
+    $('#errorMessage').removeClass('show');
+    return true;
+}
+
+// Auswertung
+function evaluate() {
+    if (!validate()) return;
+
+    const x = {};
+    for (let i = 1; i <= 80; i++) {
+        const id = 'x' + String(i).padStart(2, '0');
+        x[i] = answers[id];
+    }
+
+    // Formeln (exakt nach Vorgabe)
+    const scores = {
+        E1: clamp(+x[1] +x[2] +x[3] +x[4] +x[5] -x[6] +x[7] -x[8] -x[9] -x[10] + 16, 0, 40),
+        E2: clamp(+x[11] +x[12] +x[13] +x[14] +x[15] +x[16] -x[17] -x[18] +x[19] +x[20] + 8, 0, 40),
+        E3: clamp(-x[21] +x[22] +x[23] -x[24] +x[25] +x[26] -x[27] -x[28] +x[29] -x[30] + 20, 0, 40),
+        E4: clamp(-x[31] -x[32] -x[33] -x[34] +x[35] +x[36] +x[37] -x[38] +x[39] +x[40] + 20, 0, 40),
+        E5: clamp(+x[41] +x[42] +x[43] -x[44] -x[45] -x[46] +x[47] +x[48] -x[49] +x[50] + 16, 0, 40),
+        E6: clamp(-x[51] -x[52] -x[53] +x[54] -x[55] -x[56] -x[57] +x[58] -x[59] -x[60] + 32, 0, 40),
+        E7: clamp(+x[61] +x[62] +x[63] +x[64] +x[65] -x[66] +x[67] -x[68] +x[69] -x[70] + 12, 0, 40),
+        E8: clamp(-x[71] +x[72] +x[73] +x[74] -x[75] +x[76] +x[77] -x[78] +x[79] -x[80] + 16, 0, 40)
+    };
+
+    const classes = {};
+    Object.keys(scores).forEach(key => {
+        classes[key] = getClass(scores[key]);
+    });
+
+    displayResults(scores, classes);
+}
+
+// Clamp Funktion
+function clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+}
+
+// Bewertungsklasse
+function getClass(score) {
+    if (score <= 8) return 'schwach ausgeprägt';
+    if (score <= 16) return 'unterdurchschnittlich';
+    if (score <= 24) return 'durchschnittlich';
+    if (score <= 32) return 'überdurchschnittlich';
+    return 'stark ausgeprägt';
+}
+
+// Ergebnisse anzeigen
+function displayResults(scores, classes) {
+    const content = $('#resultsContent');
+    const table = $('#profileTable');
+    
+    content.empty();
+    table.empty();
+
+    scales.forEach(scale => {
+        const score = scores[scale.id];
+        const className = classes[scale.id];
+        const percentage = (score / 40) * 100;
+
+        const card = $(`
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-title">${scale.id}: ${scale.name}</div>
+                    <div class="result-score">${score} / 40</div>
+                    <div class="result-class">${className}</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${percentage}%">
+                        ${percentage.toFixed(0)}%
+                    </div>
+                </div>
+            </div>
+        `);
+        content.append(card);
+
+        // Tabelle
+        const row = $(`
+            <tr>
+                <td><strong>${scale.id}:</strong> ${scale.name}</td>
+                <td>${score} / 40</td>
+                <td>${className}</td>
+            </tr>
+        `);
+        table.append(row);
+    });
+
+    // Fragen ausblenden
+    $('#questionsContainer .section').hide();
+    
+    // Scrollen zu Ergebnissen
+    $('#results').show();
+    $('#btnExportPDF').show();
+    updateActionGroupLabels();
+    $('html, body').animate({
+        scrollTop: $('#results').offset().top - 80
+    }, 800);
+}
+
+// Zurücksetzen
+function reset() {
+    if (!confirm('Möchten Sie wirklich alle Antworten und Ergebnisse löschen?')) {
+        return;
+    }
+
+    answers = {};
+    $('input[type="radio"]').prop('checked', false).prop('disabled', false);
+    $('#userName').prop('disabled', false);
+    $('.question-card').removeClass('unanswered');
+    $('#errorMessage').removeClass('show');
+    $('#results').hide();
+    $('#btnExportPDF').hide();
+    updateActionGroupLabels();
+    localStorage.removeItem('eq_test_answers');
+    
+    // Fragen wieder anzeigen
+    $('#questionsContainer .section').show();
+    $('.section-header').removeClass('collapsed');
+    $('.section-questions').removeClass('collapsed');
+
+    $('html, body').animate({ scrollTop: 0 }, 500);
+}
+
+// Auswertung laden
+function loadResult(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            // Validierung
+            if (!data.answers || !data.name) {
+                showToast('Die Datei enthält keine gültige Auswertung.', 'error');
+                return;
+            }
+            
+            // Name laden
+            $('#userName').val(data.name || 'Unbenannt');
+            
+            // Antworten laden
+            answers = data.answers;
+            
+            // Radio-Buttons setzen
+            Object.keys(answers).forEach(questionId => {
+                const value = answers[questionId];
+                $(`input[name="${questionId}"][value="${value}"]`).prop('checked', true);
+            });
+            
+            // In localStorage speichern
+            localStorage.setItem('eq_test_answers', JSON.stringify(answers));
+            
+            // Markierungen entfernen
+            $('.question-card').removeClass('unanswered');
+            
+            // Namensfeld und Fragen deaktivieren (geladenes Testergebnis)
+            $('#userName').prop('disabled', true);
+            $('input[type="radio"]').prop('disabled', true);
+            
+            // Erfolgsmeldung
+            const dateStr = new Date(data.timestamp).toLocaleString('de-DE');
+            showToast(`Auswertung von "${data.name}" wurde geladen (${dateStr}).<br>Klicken Sie auf "Auswerten" um die Ergebnisse anzuzeigen.`, 'success', 6000);
+            
+            // Nach oben scrollen
+            $('html, body').animate({ scrollTop: 0 }, 500);
+            
+        } catch (error) {
+            console.error('Fehler beim Laden der Auswertung:', error);
+            showToast('Die Datei konnte nicht gelesen werden.', 'error');
+        }
+    };
+    
+    reader.onerror = function() {
+        showToast('Fehler beim Lesen der Datei.', 'error');
+    };
+    
+    reader.readAsText(file);
+}
+
+// Export JSON
+function exportJSON() {
+    if (!validate()) {
+        showToast('Bitte beantworten Sie zuerst alle Fragen.', 'warning');
+        return;
+    }
+
+    const userName = $('#userName').val().trim() || 'Unbenannt';
+
+    // Neu berechnen
+    const x = {};
+    for (let i = 1; i <= 80; i++) {
+        const id = 'x' + String(i).padStart(2, '0');
+        x[i] = answers[id];
+    }
+
+    const scores = {
+        E1: clamp(+x[1] +x[2] +x[3] +x[4] +x[5] -x[6] +x[7] -x[8] -x[9] -x[10] + 16, 0, 40),
+        E2: clamp(+x[11] +x[12] +x[13] +x[14] +x[15] +x[16] -x[17] -x[18] +x[19] +x[20] + 8, 0, 40),
+        E3: clamp(-x[21] +x[22] +x[23] -x[24] +x[25] +x[26] -x[27] -x[28] +x[29] -x[30] + 20, 0, 40),
+        E4: clamp(-x[31] -x[32] -x[33] -x[34] +x[35] +x[36] +x[37] -x[38] +x[39] +x[40] + 20, 0, 40),
+        E5: clamp(+x[41] +x[42] +x[43] -x[44] -x[45] -x[46] +x[47] +x[48] -x[49] +x[50] + 16, 0, 40),
+        E6: clamp(-x[51] -x[52] -x[53] +x[54] -x[55] -x[56] -x[57] +x[58] -x[59] -x[60] + 32, 0, 40),
+        E7: clamp(+x[61] +x[62] +x[63] +x[64] +x[65] -x[66] +x[67] -x[68] +x[69] -x[70] + 12, 0, 40),
+        E8: clamp(-x[71] +x[72] +x[73] +x[74] -x[75] +x[76] +x[77] -x[78] +x[79] -x[80] + 16, 0, 40)
+    };
+
+    const classes = {};
+    Object.keys(scores).forEach(key => {
+        classes[key] = getClass(scores[key]);
+    });
+
+    const exportData = {
+        name: userName,
+        answers: answers,
+        scores: scores,
+        classes: classes,
+        timestamp: new Date().toISOString()
+    };
+
+    $('#exportData').val(JSON.stringify(exportData, null, 2));
+    $('#exportModal').addClass('show');
+}
+
+// Handle File Upload
+// Sortiert uploadedResults nach Timestamp (älteste zuerst)
+function sortResultsByTimestamp() {
+    uploadedResults.sort((a, b) => {
+        const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+        const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+        return dateA - dateB;
+    });
+}
+
+function handleFiles(files) {
+    Array.from(files).forEach(file => {
+        if (file.type === 'application/json' || file.name.endsWith('.json')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.scores && data.name) {
+                        uploadedResults.push(data);
+                        sortResultsByTimestamp();
+                        updateFileList();
+                        updateComparison();
+                    } else {
+                        console.error('Ungültige Datenstruktur:', data);
+                        showToast(`Ungültige Datei: ${file.name}<br>Erwartet: JSON mit "scores" und "name" Feldern`, 'error');
+                    }
+                } catch (err) {
+                    console.error('JSON Parse Fehler:', err, 'Inhalt:', e.target.result);
+                    showToast(`Fehler beim Lesen der Datei: ${file.name}<br>${err.message}`, 'error');
+                }
+            };
+            reader.onerror = function(err) {
+                console.error('FileReader Fehler:', err);
+                showToast(`Fehler beim Laden der Datei: ${file.name}`, 'error');
+            };
+            reader.readAsText(file);
+        }
+    });
+}
+
+// Update File List
+function updateFileList() {
+    const list = $('#fileList');
+    list.empty();
+
+    if (uploadedResults.length === 0) {
+        return;
+    }
+
+    uploadedResults.forEach((result, index) => {
+        // Timestamp formatieren
+        let timestampText = '';
+        if (result.timestamp) {
+            const date = new Date(result.timestamp);
+            timestampText = date.toLocaleString('de-DE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        const item = $(`
+            <div class="file-item">
+                <div class="file-item-info">
+                    <div class="file-item-name">${result.name}</div>
+                    ${timestampText ? `<div class="file-item-timestamp">📅 ${timestampText}</div>` : ''}
+                </div>
+                <button class="file-item-btn" data-index="${index}">Entfernen</button>
+            </div>
+        `);
+        
+        item.find('button').on('click', function() {
+            const idx = parseInt($(this).data('index'));
+            uploadedResults.splice(idx, 1);
+            updateFileList();
+            updateComparison();
+        });
+
+        list.append(item);
+    });
+}
+
+// Update Comparison
+function updateComparison() {
+    if (uploadedResults.length === 0) {
+        $('#comparisonChart').removeClass('show');
+        $('#btnExportPDF').hide();
+        updateActionGroupLabels();
+        return;
+    }
+
+    $('#comparisonChart').addClass('show');
+    $('#btnExportPDF').show();
+    updateActionGroupLabels();
+    const content = $('#comparisonContent');
+    content.empty();
+
+    scales.forEach(scale => {
+        const section = $(`
+            <div class="comparison-scale">
+                <div class="comparison-scale-header">${scale.id}: ${scale.name}</div>
+                <div class="comparison-bars"></div>
+            </div>
+        `);
+
+        const bars = section.find('.comparison-bars');
+        let totalScore = 0;
+        let scores = [];
+        const showTimestamp = $('#showTimestamp').is(':checked');
+
+        // uploadedResults ist bereits sortiert, keine separate Sortierung nötig
+        uploadedResults.forEach((result, index) => {
+            const score = result.scores[scale.id];
+            totalScore += score;
+            scores.push(score);
+            const percentage = (score / 40) * 100;
+            const color = colors[index % colors.length];
+            const className = getClass(score);
+
+            // Label: entweder Timestamp oder Name
+            let displayLabel = result.name;
+            if (showTimestamp && result.timestamp) {
+                const date = new Date(result.timestamp);
+                displayLabel = date.toLocaleString('de-DE', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            const barContent = score > 0 ? `
+                        <div class="comparison-bar" style="width: ${percentage}%; background: ${color};">
+                            ${className}
+                        </div>` : '';
+
+            const row = $(`
+                <div class="comparison-bar-row">
+                    <div class="comparison-bar-name">${displayLabel}</div>
+                    <div class="comparison-bar-container">
+                        ${barContent}
+                    </div>
+                    <div class="comparison-bar-score">${score} / 40</div>
+                </div>
+            `);
+
+            bars.append(row);
+        });
+
+        // Mittelwert berechnen und anzeigen
+        const showAverage = $('#showAverage').is(':checked');
+        if (uploadedResults.length > 1 && showAverage) {
+            const avgScore = Math.round(totalScore / uploadedResults.length);
+            const avgPercentage = (avgScore / 40) * 100;
+            const avgClassName = getClass(avgScore);
+
+            const avgBarContent = avgScore > 0 ? `
+                        <div class="comparison-bar" style="width: ${avgPercentage}%; background: #95a5a6;">
+                            ${avgClassName}
+                        </div>` : '';
+
+            const avgRow = $(`
+                <div class="comparison-bar-row" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #bdc3c7;">
+                    <div class="comparison-bar-name" style="font-weight: 700;">Mittelwert</div>
+                    <div class="comparison-bar-container">
+                        ${avgBarContent}
+                    </div>
+                    <div class="comparison-bar-score" style="font-weight: 700;">${avgScore} / 40</div>
+                </div>
+            `);
+
+            bars.append(avgRow);
+        }
+
+        // Median berechnen und anzeigen
+        const showMedian = $('#showMedian').is(':checked');
+        if (uploadedResults.length > 1 && showMedian) {
+            scores.sort((a, b) => a - b);
+            let medianScore;
+            const mid = Math.floor(scores.length / 2);
+            if (scores.length % 2 === 0) {
+                medianScore = Math.round((scores[mid - 1] + scores[mid]) / 2);
+            } else {
+                medianScore = scores[mid];
+            }
+            const medianPercentage = (medianScore / 40) * 100;
+            const medianClassName = getClass(medianScore);
+
+            // border-top nur wenn kein Mittelwert angezeigt wird
+            const needsBorder = !showAverage;
+            const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
+
+            const medianBarContent = medianScore > 0 ? `
+                        <div class="comparison-bar" style="width: ${medianPercentage}%; background: #7f8c8d;">
+                            ${medianClassName}
+                        </div>` : '';
+
+            const medianRow = $(`
+                <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
+                    <div class="comparison-bar-name" style="font-weight: 700;">Median</div>
+                    <div class="comparison-bar-container">
+                        ${medianBarContent}
+                    </div>
+                    <div class="comparison-bar-score" style="font-weight: 700;">${medianScore} / 40</div>
+                </div>
+            `);
+
+            bars.append(medianRow);
+        }
+
+        // Spannweite berechnen und anzeigen
+        const showRange = $('#showRange').is(':checked');
+        if (uploadedResults.length > 1 && showRange) {
+            const minScore = Math.min(...scores);
+            const maxScore = Math.max(...scores);
+            const rangeValue = maxScore - minScore;
+            const rangePercentage = (rangeValue / 40) * 100;
+
+            // border-top nur wenn weder Mittelwert noch Median angezeigt wird
+            const needsBorder = !showAverage && !showMedian;
+            const borderStyle = needsBorder ? 'border-top: 2px solid #bdc3c7; padding-top: 15px;' : '';
+
+            // Spannweiten-Balken: Breite proportional zum Delta-Wert (Streuung)
+            // Die Balkenlänge repräsentiert ausschließlich die Differenz (Max - Min)
+            const rangeBarContent = rangeValue > 0 ? `
+                        <div class="comparison-bar" style="width: ${rangePercentage}%; background: #9b59b6;">
+                            Min: ${minScore} | Max: ${maxScore}
+                        </div>` : '';
+
+            const rangeRow = $(`
+                <div class="comparison-bar-row" style="margin-top: 15px; ${borderStyle}">
+                    <div class="comparison-bar-name" style="font-weight: 700;">Spannweite</div>
+                    <div class="comparison-bar-container">
+                        ${rangeBarContent}
+                    </div>
+                    <div class="comparison-bar-score" style="font-weight: 700;">Δ ${rangeValue} (${rangePercentage.toFixed(1)}%)</div>
+                </div>
+            `);
+
+            bars.append(rangeRow);
+        }
+
+        content.append(section);
+    });
+}
+
+// PDF Export für Befragung
+async function exportSurveyPDF() {
+    const button = $('#btnExportPDF');
+    const originalText = button.text();
+    button.text('Erstelle PDF...').prop('disabled', true);
+
+    try {
+        if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+            throw new Error('jsPDF-Bibliothek nicht geladen');
+        }
+        if (typeof html2canvas === 'undefined') {
+            throw new Error('html2canvas-Bibliothek nicht geladen');
+        }
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const margin = 15;
+        const contentWidth = pageWidth - (2 * margin);
+        const maxContentHeight = pageHeight - (2 * margin) - 15;
+        
+        const now = new Date();
+        const exportDate = now.toLocaleDateString('de-DE', { 
+            day: '2-digit', 
+            month: '2-digit', 
+            year: 'numeric' 
+        }) + ' ' + now.toLocaleTimeString('de-DE', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        let pageNumber = 1;
+        let currentYPosition = margin;
+        
+        const addFooter = () => {
+            pdf.setFontSize(9);
+            pdf.setTextColor(128, 128, 128);
+            pdf.text(`Seite ${pageNumber}`, pageWidth / 2, pageHeight - 8, { align: 'center' });
+            pdf.text(`Export: ${exportDate}`, margin, pageHeight - 8);
+            pdf.text('eq-test.m-wiesner.de', pageWidth - margin, pageHeight - 8, { align: 'right' });
+        };
+        
+        // Titel
+        pdf.setFontSize(18);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('E-Test – Emotionale Intelligenz', margin, currentYPosition);
+        currentYPosition += 10;
+        
+        // Name
+        const userName = $('#userName').val().trim() || 'Unbenannt';
+        pdf.setFontSize(12);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(127, 140, 141);
+        pdf.text(`Ergebnis: ${userName}`, margin, currentYPosition);
+        currentYPosition += 15;
+        
+        // Einleitungstext
+        pdf.setFontSize(10);
+        pdf.setTextColor(52, 73, 94);
+        const introText = [
+            'Dieses Dokument zeigt Ihre persönliche Auswertung der emotionalen Intelligenz.',
+            'Das E-Test-Instrument bewertet acht Kompetenzbereiche auf einer Skala von 0 bis 40',
+            'Punkten. Die Bewertung erfolgt in fünf Stufen:',
+            '',
+            '  • schwach ausgeprägt (0-8 Punkte)',
+            '  • unterdurchschnittlich (9-16 Punkte)',
+            '  • durchschnittlich (17-24 Punkte)',
+            '  • überdurchschnittlich (25-32 Punkte)',
+            '  • stark ausgeprägt (33-40 Punkte)',
+            '',
+            '',
+            'Quelle:',
+            'Dieser Test basiert auf dem E-Test nach Paukert.',
+            'Details unter: https://paukert.at/aPsycho/PSYPHI/E_Test.pdf'
+        ];
+        
+        introText.forEach(line => {
+            pdf.text(line, margin, currentYPosition);
+            currentYPosition += 5;
+        });
+        
+        // Neue Seite für Ergebnisse
+        addFooter();
+        pdf.addPage();
+        pageNumber++;
+        currentYPosition = margin;
+        
+        // === ERGEBNISSE ===
+        // Ergebnisse rendern - mit PDF-Export-Modus für kompakteres Layout
+        const resultsElement = document.getElementById('results');
+        
+        // PDF-Modus aktivieren
+        resultsElement.classList.add('pdf-export-mode');
+        
+        // Kurze Verzögerung damit Browser das Layout neu berechnet
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Canvas mit optimierten Einstellungen erstellen
+        const resultsCanvas = await html2canvas(resultsElement, {
+            scale: 1.5,
+            logging: false,
+            backgroundColor: '#ffffff',
+            windowWidth: 1200,
+            windowHeight: resultsElement.scrollHeight,
+            scrollY: -window.scrollY,
+            scrollX: -window.scrollX,
+            useCORS: true
+        });
+        
+        // PDF-Modus wieder deaktivieren
+        resultsElement.classList.remove('pdf-export-mode');
+        
+        const resultsImgData = resultsCanvas.toDataURL('image/png');
+        const resultsImgWidth = contentWidth;
+        const resultsImgHeight = (resultsCanvas.height * resultsImgWidth) / resultsCanvas.width;
+        
+        // Intelligent aufteilen für optimale Seitennutzung
+        if (resultsImgHeight <= maxContentHeight) {
+            pdf.addImage(resultsImgData, 'PNG', margin, currentYPosition, resultsImgWidth, resultsImgHeight);
+        } else {
+            // Bild in mehrere Seiten aufteilen mit Canvas-Slicing
+            const scale = resultsCanvas.width / resultsImgWidth;
+            let sourceY = 0;
+            let remainingHeight = resultsCanvas.height;
+            
+            while (remainingHeight > 0) {
+                const availableHeight = maxContentHeight;
+                const sliceHeight = Math.min(remainingHeight, availableHeight * scale);
+                
+                const sliceCanvas = document.createElement('canvas');
+                sliceCanvas.width = resultsCanvas.width;
+                sliceCanvas.height = sliceHeight;
+                const sliceCtx = sliceCanvas.getContext('2d');
+                
+                sliceCtx.drawImage(
+                    resultsCanvas,
+                    0, sourceY,
+                    resultsCanvas.width, sliceHeight,
+                    0, 0,
+                    resultsCanvas.width, sliceHeight
+                );
+                
+                const sliceImgData = sliceCanvas.toDataURL('image/png');
+                const sliceImgHeight = sliceHeight / scale;
+                
+                pdf.addImage(sliceImgData, 'PNG', margin, currentYPosition, resultsImgWidth, sliceImgHeight);
+                
+                sourceY += sliceHeight;
+                remainingHeight -= sliceHeight;
+                
+                if (remainingHeight > 0) {
+                    addFooter();
+                    pdf.addPage();
+                    pageNumber++;
+                    currentYPosition = margin;
+                }
+            }
+        }
+        
+        // Neue Seite für detaillierte Antworten
+        addFooter();
+        pdf.addPage();
+        pageNumber++;
+        currentYPosition = margin;
+        
+        // === ANTWORTEN ÜBERSICHT ===
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('Ihre Antworten im Detail', margin, currentYPosition);
+        currentYPosition += 8;
+        
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(100, 100, 100);
+        pdf.text('Zur Nachvollziehbarkeit der Berechnung werden hier alle 80 Antworten aufgelistet.', margin, currentYPosition);
+        currentYPosition += 10;
+        
+        // Antworten nach Dimensionen aufschlüsseln
+        const questionsList = [
+            { id: 'x01', text: 'Ich weiß immer, welche Emotionen mich im Augenblick bewegen.' },
+            { id: 'x02', text: 'Mit leidvollen Erfahrungen und Gefühlen kann ich gut umgehen.' },
+            { id: 'x03', text: 'Meine Wertvorstellungen und Ziele leiten mich in meinem täglichen Verhalten.' },
+            { id: 'x04', text: 'In stressreichen Situationen behalte ich meinen Kopf und kann vernünftige Entscheidungen treffen.' },
+            { id: 'x05', text: 'Ich kann gut nachvollziehen, welche Gefühle mich zu bestimmten Handlungen veranlassen.' },
+            { id: 'x06', text: 'Ich neige öfter zu Stimmungsschwankungen.' },
+            { id: 'x07', text: 'Wenn ich wütend bin, schaffe ich es trotzdem, zuerst Abstand zu gewinnen und dann zu handeln.' },
+            { id: 'x08', text: 'Wenn ich mit einem Freund/einer Freundin Streit hatte, bereue ich hinterher oft, zu aggressiv geworden zu sein.' },
+            { id: 'x09', text: 'Durch meine Spontaneität habe ich des Öfteren die Folgen meines Handelns nicht bedacht.' },
+            { id: 'x10', text: 'Wenn ich gereizt bin, wirkt sich das auf meine Motivation und auch auf meine Leistung aus.' },
+            { id: 'x11', text: 'Ich bin mir bewusst, wo meine Stärken und wo meine Schwächen liegen.' },
+            { id: 'x12', text: 'Ich denke nach, bevor ich handle.' },
+            { id: 'x13', text: 'Ich bin fähig, über mich selbst zu lachen.' },
+            { id: 'x14', text: 'Ich bin selbstsicher und habe auf meine Mitmenschen eine positive Ausstrahlung.' },
+            { id: 'x15', text: 'Ich kann über mein Sexualleben offen reden.' },
+            { id: 'x16', text: 'Ich fühle mich heute im Großen und Ganzen wohler als in meiner Jugend.' },
+            { id: 'x17', text: 'Manche Menschen in meiner Umgebung haben ein völlig falsches Bild von mir.' },
+            { id: 'x18', text: 'Meine Gefühle und Emotionen behalte ich lieber für mich.' },
+            { id: 'x19', text: 'Ich fühle mich wohl, wenn ich im Mittelpunkt stehe.' },
+            { id: 'x20', text: 'Ich vertrete meine Überzeugungen, auch wenn ich damit alleine dastehe.' },
+            { id: 'x21', text: 'Ein sicherer Arbeitsplatz ist für mich wichtiger als eine kreative, aber unsichere Arbeit.' },
+            { id: 'x22', text: 'Ich mache gerne neue Erfahrungen und reise daher sehr gerne.' },
+            { id: 'x23', text: 'Ich freue mich auf die neue Umgebung, wenn ich umziehe.' },
+            { id: 'x24', text: 'Kleine Änderungen an meinem Arbeitsplatz können für mich durchaus größere Probleme bedeuten.' },
+            { id: 'x25', text: 'Der schnelle Wandel in der Gesellschaft fasziniert mich.' },
+            { id: 'x26', text: 'Ich passe mich flexibel an neue Situationen an.' },
+            { id: 'x27', text: 'Ich halte mich lieber an bewährte Konzepte, als neue Strategien zur Problemlösung zu suchen.' },
+            { id: 'x28', text: 'Ich kann es nicht ausstehen, wenn ich meine einmal gefassten Pläne ändern muss.' },
+            { id: 'x29', text: 'Ich wäre lieber in der Werbebranche als in der Versicherungsbranche tätig.' },
+            { id: 'x30', text: 'Das Sprichwort „Was der Bauer nicht kennt, das isst er nicht" trifft auch auf mich zu.' },
+            { id: 'x31', text: 'Vergangene Misserfolge bedrücken mich des Öfteren.' },
+            { id: 'x32', text: 'Mir fehlt es manchmal an Ausgeglichenheit und Ruhe.' },
+            { id: 'x33', text: 'Wenn ich Niederlagen einstecken muss, fehlt mir anschließend lange die Kraft für einen Neuanfang.' },
+            { id: 'x34', text: 'Ich lasse mich im Alltag vom Stress vereinnahmen und fühle mich dann gehetzt und getrieben.' },
+            { id: 'x35', text: 'Wenn ich ein neues Projekt in Angriff nehme, dann gehe ich davon aus, Erfolg zu haben.' },
+            { id: 'x36', text: 'Rückschläge sehe ich als Resultat von beeinflussbaren Umständen und nicht als ein persönliches Versagen.' },
+            { id: 'x37', text: 'Ich sehe mich selbst mit Humor und Distanz.' },
+            { id: 'x38', text: 'Ich bin oft schnell eifersüchtig.' },
+            { id: 'x39', text: 'Als Ausgleich zu meinem Berufsleben pflege ich ein regelmäßiges Hobby.' },
+            { id: 'x40', text: 'Meine Freunde würden mich als Optimisten bezeichnen.' },
+            { id: 'x41', text: 'Mein berufliches Ziel ist es, Karriere zu machen, und ich bin auch bereit, alles dafür zu tun.' },
+            { id: 'x42', text: 'Hindernisse und Rückschläge können mich nicht aufhalten.' },
+            { id: 'x43', text: 'Meinen Urlaub nutze ich sehr oft, um mir über meine beruflichen Ziele und Möglichkeiten Gedanken zu machen.' },
+            { id: 'x44', text: 'Zufriedenheit ist mir wichtiger als Weiterentwicklung.' },
+            { id: 'x45', text: 'Die Sonntage kann ich nicht genießen, weil danach wieder eine ganze Woche voll Arbeit vor mir liegt.' },
+            { id: 'x46', text: 'Manchmal habe ich Probleme, begonnene Projekte zielstrebig zu einem Abschluss zu bringen.' },
+            { id: 'x47', text: 'Ich bringe gerne Opfer, damit ein Ziel meiner Firma erreicht wird.' },
+            { id: 'x48', text: 'Notfalls setze ich mich über Vorschriften hinweg, wenn ich dadurch mein Ziel erreichen kann.' },
+            { id: 'x49', text: 'Mein Privatleben ist mir wichtiger als mein Berufsleben.' },
+            { id: 'x50', text: 'Um gute Ideen zu realisieren, nehme ich auch Überstunden in Kauf.' },
+            { id: 'x51', text: 'Wenn ich andere miteinander reden sehe, dann fürchte ich des Öfteren, dass sie über mich reden könnten.' },
+            { id: 'x52', text: 'Ich habe viele Feinde.' },
+            { id: 'x53', text: 'Wenn sich jemand besonders zuvorkommend verhält, überlege ich, welche Absicht dahinterstecken könnte.' },
+            { id: 'x54', text: 'Durch meine Ehrlichkeit haben meine Mitmenschen Vertrauen in mich.' },
+            { id: 'x55', text: 'Wenn jemand mein Vertrauen missbraucht hat, dann vergesse ich das sehr lange nicht.' },
+            { id: 'x56', text: 'Wenn ich anderen eine Aufgabe zuteile, dann kontrolliere ich oft, ob deren Ausführung meinen Vorstellungen entspricht.' },
+            { id: 'x57', text: 'Ich überlege oft, ob andere Leute schlecht über mich denken.' },
+            { id: 'x58', text: 'Sollte ich einmal verhindert sein, dann würde ich einen engen Freund mit gutem Gewissen mit meiner Bankkarte zum Geldabheben schicken.' },
+            { id: 'x59', text: 'Korrektes Verhalten entspringt bei den meisten Menschen nur der Angst vor Strafe.' },
+            { id: 'x60', text: 'Vertrauen ist gut, Kontrolle ist besser.' },
+            { id: 'x61', text: 'Ich bin ein guter Zuhörer.' },
+            { id: 'x62', text: 'Ich verstehe die Gefühle der Anderen und achte auf ihre Bedürfnisse.' },
+            { id: 'x63', text: 'Meine Freunde können sich darauf verlassen, dass ich ihnen bei Problemen behilflich bin.' },
+            { id: 'x64', text: 'Für meine Kollegen bin ich eine beliebte Anlaufstelle, wenn sie sich ausreden wollen.' },
+            { id: 'x65', text: 'Ich arbeite gerne mit fremden Gruppen und dadurch entstehende Konflikte machen mir nichts aus.' },
+            { id: 'x66', text: 'Es ist schwer, das Vertrauen anderer zu gewinnen.' },
+            { id: 'x67', text: 'Wenn jemand mit emotionalen Problemen meine Hilfe braucht, dann schiebe ich meine Termine gerne auf.' },
+            { id: 'x68', text: 'Ich mische mich nicht gern in anderer Leute Angelegenheiten.' },
+            { id: 'x69', text: 'Die Körpersprache der Menschen sagt oft mehr aus als ihre Worte.' },
+            { id: 'x70', text: 'Freunde zu finden ist nicht einfach.' },
+            { id: 'x71', text: 'Bei Haustieren stört mich am meisten, dass man viel Verantwortung auf sich nimmt.' },
+            { id: 'x72', text: 'Ich trete für meine Überzeugung ein und weise andere zurecht, wenn sie meiner Meinung nach eine falsche Ansicht vertreten.' },
+            { id: 'x73', text: 'Ich bin zuverlässig.' },
+            { id: 'x74', text: 'Wenn ich jemandem ein Versprechen gegeben habe, dann halte ich es in jedem Fall.' },
+            { id: 'x75', text: 'Mit dem Organisieren meiner Termine und meiner Tätigkeiten habe ich Probleme.' },
+            { id: 'x76', text: 'Wenn ich ein Ziel nicht erreiche, dann ist es meine Schuld.' },
+            { id: 'x77', text: 'Ich arbeite gewissenhaft und sorgfältig.' },
+            { id: 'x78', text: 'Wenn ich meinen Urlaub antrete, dann überlasse ich angefangene Arbeiten meinen Kollegen.' },
+            { id: 'x79', text: 'Nach Feierabend grüble ich oft weiterhin über meine berufliche Verantwortung nach.' },
+            { id: 'x80', text: 'Wenn es um eine neue Arbeitszuteilung geht, hoffe ich, dass ich nicht zu viel Verantwortung übernehmen muss.' }
+        ];
+        
+        const scaleLabelsText = {
+            0: 'nicht zutreffend',
+            1: 'wenig zutreffend',
+            2: 'teilweise zutreffend',
+            3: 'viel zutreffend',
+            4: 'ganz zutreffend'
+        };
+        
+        // Dimensionen mit ihren Fragen
+        const dimensions = [
+            { id: 'E1', name: 'Selbsteinsicht und Selbstkontrolle', questions: questionsList.slice(0, 10) },
+            { id: 'E2', name: 'Selbstsicherheit und Selbstvertrauen', questions: questionsList.slice(10, 20) },
+            { id: 'E3', name: 'Offenheit und Anpassungsfähigkeit', questions: questionsList.slice(20, 30) },
+            { id: 'E4', name: 'Ausgeglichenheit und Optimismus', questions: questionsList.slice(30, 40) },
+            { id: 'E5', name: 'Leistungsorientierung', questions: questionsList.slice(40, 50) },
+            { id: 'E6', name: 'Vertrauen in die Mitmenschen', questions: questionsList.slice(50, 60) },
+            { id: 'E7', name: 'Einfühlungsvermögen und Mitgefühl', questions: questionsList.slice(60, 70) },
+            { id: 'E8', name: 'Verantwortungsbewusstsein', questions: questionsList.slice(70, 80) }
+        ];
+        
+        let questionNumber = 1;
+        
+        // Jede Dimension einzeln rendern (jede auf eigener Seite)
+        for (let dimIndex = 0; dimIndex < dimensions.length; dimIndex++) {
+            const dimension = dimensions[dimIndex];
+            
+            // Neue Seite für jede Dimension (außer bei der ersten)
+            if (dimIndex > 0) {
+                addFooter();
+                pdf.addPage();
+                pageNumber++;
+                currentYPosition = margin;
+            }
+            
+            // Container für diese Dimension erstellen
+            const dimensionContainer = document.createElement('div');
+            dimensionContainer.className = 'answers-list';
+            dimensionContainer.style.cssText = 'position: absolute; left: -9999px; width: 1000px; background: #ffffff; padding: 20px;';
+            
+            // Header nur bei der ersten Dimension
+            if (dimIndex === 0) {
+                const header = document.createElement('div');
+                header.className = 'answers-list-header';
+                header.innerHTML = `
+                    <h2>Ihre Antworten im Detail</h2>
+                    <p>Zur Nachvollziehbarkeit der Berechnung werden hier alle 80 Antworten aufgelistet.</p>
+                `;
+                dimensionContainer.appendChild(header);
+            }
+            
+            // Dimensions-Gruppe
+            const dimensionGroup = document.createElement('div');
+            dimensionGroup.className = 'dimension-group';
+            
+            // Dimensions-Header
+            const dimHeader = document.createElement('div');
+            dimHeader.className = 'dimension-header';
+            dimHeader.textContent = `${dimension.id}: ${dimension.name}`;
+            dimensionGroup.appendChild(dimHeader);
+            
+            // Fragen dieser Dimension
+            dimension.questions.forEach(question => {
+                const answer = answers[question.id];
+                const answerText = scaleLabelsText[answer] || 'keine Antwort';
+                
+                const answerItem = document.createElement('div');
+                answerItem.className = 'answer-item';
+                
+                answerItem.innerHTML = `
+                    <div class="answer-number">${questionNumber}.</div>
+                    <div class="answer-content">
+                        <div class="answer-question">${question.text}</div>
+                        <div class="answer-value">Antwort: ${answer} – ${answerText}</div>
+                    </div>
+                `;
+                
+                dimensionGroup.appendChild(answerItem);
+                questionNumber++;
+            });
+            
+            dimensionContainer.appendChild(dimensionGroup);
+            
+            // In DOM einfügen
+            document.body.appendChild(dimensionContainer);
+            
+            // Kurz warten damit Browser rendern kann
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            // Canvas für diese Dimension erstellen
+            const dimCanvas = await html2canvas(dimensionContainer, {
+                scale: 1.5,
+                logging: false,
+                backgroundColor: '#ffffff',
+                windowWidth: 1000,
+                windowHeight: dimensionContainer.scrollHeight
+            });
+            
+            // Element wieder entfernen
+            document.body.removeChild(dimensionContainer);
+            
+            // Dimension ins PDF einfügen
+            const dimImgData = dimCanvas.toDataURL('image/png');
+            const dimImgWidth = contentWidth;
+            const dimImgHeight = (dimCanvas.height * dimImgWidth) / dimCanvas.width;
+            
+            // Prüfen ob auf aktuelle Seite passt
+            if (currentYPosition + dimImgHeight > maxContentHeight + margin) {
+                // Neue Seite beginnen
+                addFooter();
+                pdf.addPage();
+                pageNumber++;
+                currentYPosition = margin;
+            }
+            
+            // Bild einfügen
+            pdf.addImage(dimImgData, 'PNG', margin, currentYPosition, dimImgWidth, dimImgHeight);
+            currentYPosition += dimImgHeight + 5;
+        }
+        
+        // === BERECHNUNGSMETHODIK ===
+        // Neue Seite für Berechnungsformeln
+        addFooter();
+        pdf.addPage();
+        pageNumber++;
+        currentYPosition = margin;
+        
+        // Überschrift
+        pdf.setFontSize(16);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('Berechnungsmethodik', margin, currentYPosition);
+        currentYPosition += 10;
+        
+        // Einleitungstext
+        pdf.setFontSize(10);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(60, 60, 60);
+        
+        const methodikText = [
+            'Der E-Test bewertet acht Dimensionen emotionaler Intelligenz. Jede Dimension wird durch',
+            '10 Fragen mit jeweils 5 Antwortmöglichkeiten (0 bis 4) erfasst. Pro Dimension können',
+            'maximal 40 Punkte erreicht werden.',
+            '',
+            'Die Berechnung erfolgt durch Addition und Subtraktion der Antwortwerte gemäß den',
+            'folgenden Formeln. Der Konstantenwert am Ende jeder Formel normalisiert das Ergebnis:'
+        ];
+        
+        methodikText.forEach(line => {
+            pdf.text(line, margin, currentYPosition);
+            currentYPosition += 5;
+        });
+        
+        currentYPosition += 5;
+        
+        // Formeln
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(41, 128, 185);
+        pdf.text('Berechnungsformeln:', margin, currentYPosition);
+        currentYPosition += 6;
+        
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(60, 60, 60);
+        
+        const formulas = [
+            'E1 = +x01 +x02 +x03 +x04 +x05 -x06 +x07 -x08 -x09 -x10 + 16',
+            'E2 = +x11 +x12 +x13 +x14 +x15 +x16 -x17 -x18 +x19 +x20 + 8',
+            'E3 = -x21 +x22 +x23 -x24 +x25 +x26 -x27 -x28 +x29 -x30 + 20',
+            'E4 = -x31 -x32 -x33 -x34 +x35 +x36 +x37 -x38 +x39 +x40 + 20',
+            'E5 = +x41 +x42 +x43 -x44 -x45 -x46 +x47 +x48 -x49 +x50 + 16',
+            'E6 = -x51 -x52 -x53 +x54 -x55 -x56 -x57 +x58 -x59 -x60 + 32',
+            'E7 = +x61 +x62 +x63 +x64 +x65 -x66 +x67 -x68 +x69 -x70 + 12',
+            'E8 = -x71 +x72 +x73 +x74 -x75 +x76 +x77 -x78 +x79 -x80 + 16'
+        ];
+        
+        formulas.forEach(formula => {
+            pdf.text(formula, margin + 3, currentYPosition);
+            currentYPosition += 5;
+        });
+        
+        currentYPosition += 8;
+        
+        // Bewertungsklassen
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(41, 128, 185);
+        pdf.text('Bewertungsklassen:', margin, currentYPosition);
+        currentYPosition += 6;
+        
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(60, 60, 60);
+        pdf.text('Für jede Dimension gilt folgende Bewertungsskala:', margin, currentYPosition);
+        currentYPosition += 8;
+        
+        // Bewertungstabelle als Text
+        const bewertungen = [
+            { label: 'schwach ausgeprägt', range: '0 – 8 Punkte', color: [231, 76, 60] },
+            { label: 'unterdurchschnittlich', range: '9 – 16 Punkte', color: [230, 126, 34] },
+            { label: 'durchschnittlich', range: '17 – 24 Punkte', color: [241, 196, 15] },
+            { label: 'überdurchschnittlich', range: '25 – 32 Punkte', color: [52, 152, 219] },
+            { label: 'stark ausgeprägt', range: '33 – 40 Punkte', color: [46, 204, 113] }
+        ];
+        
+        bewertungen.forEach(bew => {
+            // Farbiger Punkt
+            pdf.setFillColor(bew.color[0], bew.color[1], bew.color[2]);
+            pdf.circle(margin + 2, currentYPosition - 1, 1.5, 'F');
+            
+            // Text
+            pdf.setTextColor(60, 60, 60);
+            pdf.setFont(undefined, 'bold');
+            pdf.text(bew.label, margin + 8, currentYPosition);
+            
+            pdf.setFont(undefined, 'normal');
+            pdf.text(`: ${bew.range}`, margin + 60, currentYPosition);
+            
+            currentYPosition += 6;
+        });
+        
+        currentYPosition += 8;
+        
+        // Hinweis zur Interpretation
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'italic');
+        pdf.setTextColor(100, 100, 100);
+        
+        const interpretationText = [
+            'Die acht Dimensionswerte (E1 bis E8) bilden zusammen Ihr persönliches Profil',
+            'emotionaler Intelligenz. Dieses zeigt Ihre Stärken und Entwicklungsfelder in den',
+            'verschiedenen Bereichen emotionaler Kompetenz auf.'
+        ];
+        
+        interpretationText.forEach(line => {
+            pdf.text(line, margin, currentYPosition);
+            currentYPosition += 5;
+        });
+        
+        addFooter();
+        
+        const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
+        pdf.save(`eq-test-${userName}-${timestamp}.pdf`);
+        showToast('PDF wurde erfolgreich erstellt und heruntergeladen!', 'success');
+        
+    } catch (error) {
+        console.error('PDF Export Fehler:', error);
+        showToast('Fehler beim Erstellen des PDFs: ' + error.message, 'error');
+    } finally {
+        button.text(originalText).prop('disabled', false);
+    }
+}
+
+// PDF Export
+async function exportComparisonPDF() {
+    const button = $('#btnExportPDF');
+    const originalText = button.text();
+    button.text('Erstelle PDF...').prop('disabled', true);
+
+    try {
+        // Bibliotheken prüfen
+        if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+            throw new Error('jsPDF-Bibliothek nicht geladen');
+        }
+        if (typeof html2canvas === 'undefined') {
+            throw new Error('html2canvas-Bibliothek nicht geladen');
+        }
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        // A4-Maße mit Rändern
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const margin = 15;
+        const contentWidth = pageWidth - (2 * margin);
+        const maxContentHeight = pageHeight - (2 * margin) - 15; // 15mm für Footer
+        
+        // Exportdatum
+        const now = new Date();
+        const exportDate = now.toLocaleDateString('de-DE', { 
+            day: '2-digit', 
+            month: '2-digit', 
+            year: 'numeric' 
+        }) + ' ' + now.toLocaleTimeString('de-DE', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        let pageNumber = 1;
+        let currentYPosition = margin;
+        
+        // Funktion für Footer mit URL
+        const addFooter = () => {
+            pdf.setFontSize(9);
+            pdf.setTextColor(128, 128, 128);
+            pdf.text(`Seite ${pageNumber}`, pageWidth / 2, pageHeight - 8, { align: 'center' });
+            pdf.text(`Export: ${exportDate}`, margin, pageHeight - 8);
+            pdf.text('eq-test.m-wiesner.de', pageWidth - margin, pageHeight - 8, { align: 'right' });
+        };
+        
+        // === TITELBEREICH ===
+        // Haupttitel
+        pdf.setFontSize(18);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('E-Test – Emotionale Intelligenz', margin, currentYPosition);
+        currentYPosition += 10;
+        
+        // Untertitel
+        pdf.setFontSize(12);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(127, 140, 141);
+        pdf.text('Vergleichsanalyse der Ergebnisse', margin, currentYPosition);
+        currentYPosition += 15;
+        
+        // Einleitungstext
+        pdf.setFontSize(10);
+        pdf.setTextColor(52, 73, 94);
+        const introText = [
+            'Dieser Report zeigt den Vergleich mehrerer Selbsteinschätzungen zur emotionalen',
+            'Intelligenz. Das E-Test-Instrument bewertet acht Kompetenzbereiche auf einer Skala',
+            'von 0 bis 40 Punkten:',
+            '',
+            '  • E1: Selbsteinsicht und Selbstkontrolle',
+            '  • E2: Selbstsicherheit und Selbstvertrauen',
+            '  • E3: Offenheit und Anpassungsfähigkeit',
+            '  • E4: Ausgeglichenheit und Optimismus',
+            '  • E5: Leistungsorientierung',
+            '  • E6: Vertrauen in die Mitmenschen',
+            '  • E7: Einfühlungsvermögen und Mitgefühl',
+            '  • E8: Verantwortungsbewusstsein',
+            '',
+            'Die farbcodierten Balken ermöglichen einen direkten visuellen Vergleich der Ergebnisse.',
+            'Statistische Kennwerte (Mittelwert, Median, Spannweite) unterstützen die Interpretation.',
+            '',
+            '',
+            'Quelle:',
+            'Dieser Test basiert auf dem E-Test nach Paukert.',
+            'Details unter: https://paukert.at/aPsycho/PSYPHI/E_Test.pdf'
+        ];
+        
+        introText.forEach(line => {
+            pdf.text(line, margin, currentYPosition);
+            currentYPosition += 5;
+        });
+        
+        // Neue Seite für die Ergebnisse
+        addFooter();
+        pdf.addPage();
+        pageNumber++;
+        currentYPosition = margin;
+        
+        // === ÜBERSICHT DER HOCHGELADENEN DATEN ===
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('Hochgeladene Auswertungen', margin, currentYPosition);
+        currentYPosition += 8;
+        
+        pdf.setFontSize(10);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(60, 60, 60);
+        pdf.text(`Anzahl der verglichenen Datensätze: ${uploadedResults.length}`, margin, currentYPosition);
+        currentYPosition += 10;
+        
+        // Liste der hochgeladenen Daten mit Timestamps
+        uploadedResults.forEach((result, index) => {
+            // Name
+            pdf.setFont(undefined, 'bold');
+            pdf.setTextColor(41, 128, 185);
+            pdf.text(`${index + 1}. ${result.name}`, margin + 3, currentYPosition);
+            currentYPosition += 5;
+            
+            // Timestamp (falls vorhanden)
+            if (result.timestamp) {
+                const date = new Date(result.timestamp);
+                const timestampText = date.toLocaleString('de-DE', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                pdf.setFont(undefined, 'normal');
+                pdf.setTextColor(127, 140, 141);
+                pdf.text(`   Erstellt am: ${timestampText}`, margin + 3, currentYPosition);
+                currentYPosition += 6;
+            } else {
+                currentYPosition += 2;
+            }
+        });
+        
+        currentYPosition += 10;
+        
+        // === ERGEBNISSE ===
+        // Überschrift für Ergebnisse
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.setTextColor(44, 62, 80);
+        pdf.text('Detaillierte Ergebnisse', margin, currentYPosition);
+        currentYPosition += 10;
+        pdf.setFont(undefined, 'normal');
+        
+        // Alle E-Sektionen einzeln verarbeiten
+        const sections = document.querySelectorAll('.comparison-scale');
+        
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            
+            // Canvas für diese Sektion erstellen
+            const canvas = await html2canvas(section, {
+                scale: 2,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+            
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = contentWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            
+            // Prüfen ob Sektion auf aktuelle Seite passt
+            if (currentYPosition + imgHeight > maxContentHeight + margin) {
+                // Neue Seite beginnen
+                addFooter();
+                pdf.addPage();
+                pageNumber++;
+                currentYPosition = margin;
+            }
+            
+            // Bild einfügen
+            pdf.addImage(imgData, 'PNG', margin, currentYPosition, imgWidth, imgHeight);
+            currentYPosition += imgHeight + 5; // 5mm Abstand zur nächsten Sektion
+        }
+        
+        // Footer für letzte Seite
+        addFooter();
+        
+        // Dateiname mit Timestamp
+        const timestamp = new Date().toISOString().slice(0,19).replace('T', '_').replace(/:/g, '-');
+        pdf.save(`eq-test-vergleich-${timestamp}.pdf`);
+        showToast('Vergleichs-PDF wurde erfolgreich erstellt und heruntergeladen!', 'success');
+        
+    } catch (error) {
+        console.error('PDF Export Fehler:', error);
+        showToast('Fehler beim Erstellen des PDFs: ' + error.message, 'error');
+    } finally {
+        button.text(originalText).prop('disabled', false);
+    }
+}
+
+// Name aus Storage laden
+function loadNameFromStorage() {
+    const name = localStorage.getItem('eq_test_name');
+    if (name) {
+        $('#userName').val(name);
+    }
+    
+    // Mittelwert-Toggle laden
+    const showAverage = localStorage.getItem('eq_test_show_average');
+    if (showAverage !== null) {
+        $('#showAverage').prop('checked', showAverage === 'true');
+    }
+    
+    // Median-Toggle laden
+    const showMedian = localStorage.getItem('eq_test_show_median');
+    if (showMedian !== null) {
+        $('#showMedian').prop('checked', showMedian === 'true');
+    }
+    
+    // Spannweite-Toggle laden
+    const showRange = localStorage.getItem('eq_test_show_range');
+    if (showRange !== null) {
+        $('#showRange').prop('checked', showRange === 'true');
+    }
+}
+
+// LocalStorage
+function saveToStorage() {
+    localStorage.setItem('eq_test_answers', JSON.stringify(answers));
+}
+
+function loadFromStorage() {
+    const stored = localStorage.getItem('eq_test_answers');
+    if (stored) {
+        answers = JSON.parse(stored);
+        
+        // Antworten wiederherstellen
+        Object.keys(answers).forEach(id => {
+            $(`input[name="${id}"][value="${answers[id]}"]`).prop('checked', true);
+        });
+    }
+    
+    // Name laden
+    const storedName = localStorage.getItem('eq_test_name');
+    if (storedName) {
+        $('#userName').val(storedName);
+    }
+    
+    // Toggle-Einstellungen laden
+    const showTimestamp = localStorage.getItem('eq_test_show_timestamp') === 'true';
+    $('#showTimestamp').prop('checked', showTimestamp);
+    
+    const showAverage = localStorage.getItem('eq_test_show_average');
+    if (showAverage !== null) {
+        $('#showAverage').prop('checked', showAverage === 'true');
+    }
+    
+    const showMedian = localStorage.getItem('eq_test_show_median');
+    if (showMedian !== null) {
+        $('#showMedian').prop('checked', showMedian === 'true');
+    }
+    
+    const showRange = localStorage.getItem('eq_test_show_range');
+    if (showRange !== null) {
+        $('#showRange').prop('checked', showRange === 'true');
+    }
+}

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Test – Emotionale Intelligenz</title>
+    
+    <!-- External Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Toast Container (für Benachrichtigungen) -->
+    <div id="toastContainer"></div>
+
+    <!-- Sticky Header Wrapper (Header + Action Bar) -->
+    <div class="sticky-header-wrapper">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-content">
+                <div>
+                    <h1>E-Test – Emotionale Intelligenz</h1>
+                    <div class="toolbar-info">80 Fragen – bitte alles beantworten</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aktionsleiste -->
+        <div class="action-bar">
+            <div class="action-bar-content">
+                <div class="action-group" id="actionGroupActions">
+                    <div class="action-group-label">Aktionen:</div>
+                    <button class="btn-action btn-action-primary" id="btnEvaluate">✓ Auswerten</button>
+                    <button class="btn-action btn-action-secondary" id="btnReset">↻ Zurücksetzen</button>
+                    <button class="btn-action btn-action-info" id="btnLoadResult">📂 Auswertung laden</button>
+                </div>
+                <div class="action-group" id="actionGroupExport">
+                    <div class="action-group-label">Export:</div>
+                    <button class="btn-action btn-action-success" id="btnExport">💾 JSON</button>
+                    <button class="btn-action btn-action-primary" id="btnExportPDF" style="display: none;">📄 PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="survey">📝 Befragung</button>
+            <button class="tab" data-tab="compare">📊 Vergleichen</button>
+        </div>
+
+        <!-- Survey Tab -->
+        <div class="tab-content active" id="surveyTab">
+            <!-- Name Input -->
+            <div class="name-input-section">
+                <label for="userName">Ihr Name (für den Export):</label>
+                <input type="text" id="userName" placeholder="z.B. Max Mustermann">
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Hidden File Input für Laden einer Auswertung -->
+            <input type="file" id="loadResultInput" accept=".json" style="display: none;">
+
+            <!-- Questions Container -->
+            <div id="questionsContainer"></div>
+
+            <!-- Results Section -->
+            <div class="section" id="results">
+                <div class="results-header">
+                    <h2>📊 Ihre Ergebnisse</h2>
+                    <p>Auswertung Ihrer emotionalen Intelligenz in 8 Bereichen</p>
+                </div>
+                <div id="resultsContent"></div>
+                
+                <div class="profile-overview">
+                    <h3 style="margin-bottom: 20px;">Profilübersicht</h3>
+                    <table class="profile-table">
+                        <thead>
+                            <tr>
+                                <th>Bereich</th>
+                                <th>Punkte</th>
+                                <th>Bewertung</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profileTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compare Tab -->
+        <div class="tab-content" id="compareTab">
+            <div class="upload-section">
+                <h2>Ergebnisse hochladen</h2>
+                <p style="margin-bottom: 20px; color: #7f8c8d;">Laden Sie eine oder mehrere JSON-Dateien hoch, um die Ergebnisse zu vergleichen.</p>
+                
+                <div class="section" style="margin: 0 0 20px 0;">
+                    <div class="section-header collapsed" id="comparisonSettingsHeader">
+                        <div class="section-header-content">
+                            <h2 style="font-size: 18px;">⚙️ Anzeigeeinstellungen</h2>
+                            <div class="section-subtitle">Statistische Kennwerte konfigurieren</div>
+                        </div>
+                        <div class="section-collapse-icon">▼</div>
+                    </div>
+                    
+                    <div class="section-questions collapsed" id="comparisonSettings">
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showTimestamp">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showTimestamp" class="toggle-label">Timestamp statt Namen anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #3498db; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #2c5f7f;">
+                                        <strong>Hinweis:</strong> Standardmäßig wird der Name angezeigt. Mit dieser Option können Sie stattdessen den Erstellungszeitpunkt in den Vergleichsbalken sehen.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showAverage" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showAverage" class="toggle-label">Mittelwert anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #f39c12; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #856404;">
+                                        <strong>Hinweis:</strong> Der Mittelwert ist empfindlich gegenüber Ausreißern. Die Mittelwertbildung ist nur innerhalb derselben Perspektive sinnvoll (z. B. nur Selbsteinschätzungen oder nur Fremdeinschätzungen).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showMedian" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showMedian" class="toggle-label">Median anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #3498db; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #2c5f7f;">
+                                        <strong>Hinweis:</strong> Der Median ist robust gegenüber Ausreißern und gibt den mittleren Wert an. Bei einer ungeraden Anzahl von Werten ist es der Wert in der Mitte, bei gerader Anzahl der Durchschnitt der beiden mittleren Werte.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <div class="toggle-container" style="margin-bottom: 10px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showRange" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <label for="showRange" class="toggle-label">Spannweite anzeigen</label>
+                            </div>
+                            <div style="padding: 12px; background: #f5e6ff; border-radius: 8px; border-left: 4px solid #9b59b6; font-size: 13px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="font-size: 18px; line-height: 1;">💡</div>
+                                    <div style="color: #6c3483;">
+                                        <strong>Hinweis:</strong> Die Spannweite (Max - Min) zeigt, wie stark die Einschätzungen auseinandergehen. <strong>Hohe Differenz</strong> = Wahrnehmungslücke, <strong>geringe Differenz</strong> = konsistentes Bild. Besonders aufschlussreich beim Vergleich von Selbst- und Fremdbild.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
+                    <p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Dateien hierher ziehen</p>
+                    <p style="color: #7f8c8d; margin-bottom: 15px;">oder</p>
+                    <button class="btn btn-primary" id="btnSelectFiles">📁 Dateien auswählen</button>
+                    <input type="file" id="fileInput" accept=".json" multiple>
+                </div>
+
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="comparison-chart" id="comparisonChart">
+                <h2>Vergleich der Ergebnisse</h2>
+                
+                <div class="comparison-notice">
+                    <div class="comparison-notice-title">Hinweis:</div>
+                    <div>Die Auswertung basiert ausschließlich auf den hochgeladenen Ergebnissen. Das System unterscheidet nicht zwischen Selbst- und Fremdeinschätzungen. Bitte achte selbst darauf, nur sinnvoll zusammengehörige Ergebnisse zu kombinieren.</div>
+                </div>
+                
+                <div id="comparisonContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">Über diese Anwendung</div>
+                <p>
+                    Diese Webanwendung ist eine freie, nicht-kommerzielle Umsetzung des<br>
+                    <strong>„E-Tests zur emotionalen Intelligenz nach Paukert"</strong>.
+                </p>
+                <p>
+                    Sie dient der strukturierten Selbsteinschätzung sowie dem Vergleich von Selbst- und Fremdeinschätzungen.
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <div class="footer-title">Transparenz & Technik</div>
+                <p>
+                    Die technische Umsetzung, die Berechnungslogik der Skalen sowie das Datenformat<br>
+                    (JSON / PDF-Export) sind offen dokumentiert.
+                </p>
+                <p>
+                    👉 Quellcode auf GitHub:
+                </p>
+                <a href="https://github.com/wwg58tvts2-del/eq-test" target="_blank" class="footer-github">
+                    https://github.com/wwg58tvts2-del/eq-test
+                </a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <div class="footer-title">Hinweis zur Einordnung</div>
+                <p>
+                    Der Test basiert auf Selbstauskünften und stellt kein klinisch validiertes Diagnoseinstrument dar.
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <p style="font-size: 13px; color: #95a5a6;">
+                Basierend auf: <a href="https://paukert.at/aPsycho/PSYPHI/E_Test.pdf" target="_blank">E-Test nach Paukert (PDF)</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-content">
+            <h3>Export JSON</h3>
+            <textarea id="exportData" readonly></textarea>
+            <div class="export-buttons">
+                <button class="btn btn-success" id="btnCopyJSON">📋 In Zwischenablage kopieren</button>
+                <button class="btn btn-primary" id="btnDownloadJSON">⬇ Als Datei herunterladen</button>
+                <button class="btn btn-secondary" id="btnCloseModal">✕ Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
