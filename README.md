@@ -262,10 +262,6 @@ Die exportierten JSON-Daten können für eine detaillierte Analyse an ChatGPT we
 
 Dieses Projekt ist für Bildungs- und Forschungszwecke frei verfügbar.
 
-## 👤 Autor
-
-Martin Wiesner
-
 ## 🔄 Version
 
 3.0.0 - Januar 2026
